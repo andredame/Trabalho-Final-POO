@@ -8,6 +8,13 @@ public class Navio {
     private double custoPorMilhaBasico;
 
     
+    public Navio(String nome, double velocidade, double autonomia, double custoPorMilhaBasico) {
+        this.nome = nome;
+        this.velocidade = velocidade;
+        this.autonomia = autonomia;
+        this.custoPorMilhaBasico = custoPorMilhaBasico;
+    }
+    
     public String getNome() {
         return nome;
     }

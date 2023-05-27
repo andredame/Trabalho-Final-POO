@@ -7,6 +7,12 @@ public class Porto {
     private String pais;
 
     
+    public Porto(int id, String nome, String pais) {
+        this.id = id;
+        this.nome = nome;
+        this.pais = pais;
+    }
+    
     public int getId() {
         return id;
     }

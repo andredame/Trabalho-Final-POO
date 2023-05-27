@@ -6,6 +6,12 @@ public class Carga {
 
 
     
+    public Carga(int identificador, int peso, double valorDeclarado, int tempoMaximo) {
+        this.identificador = identificador;
+        this.peso = peso;
+        this.valorDeclarado = valorDeclarado;
+        this.tempoMaximo = tempoMaximo;
+    }
     public int getIdentificador() {
         return identificador;
     }
