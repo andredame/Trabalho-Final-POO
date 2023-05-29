@@ -69,12 +69,3 @@ git push origin hotfix/<nome-do-problema>
 
 13. Peça a outro membro da equipe para revisar o pull request e fazer quaisquer comentários ou sugestões. Faça as alterações necessárias e continue a discutir o pull request com os revisores até que esteja pronto para ser mesclado.
 
-14. Quando o pull request for aprovado, faça o merge na ramificação `master` e na `develop` diretamente no GitHub.
-
-15. Após o merge, verifique se o problema crítico foi resolvido em produção e se não há outros problemas relacionados.
-
-16. Exclua a branch de `hotfix` do repositório remoto e local:
-```bash
-git push origin --delete hotfix/<nome-do-problema>
-git branch -d hotfix/<nome-do-problema>
-```
