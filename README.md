@@ -68,3 +68,4 @@ git push origin hotfix/<nome-do-problema>
 ```
 
 13. Peça a outro membro da equipe para revisar o pull request e fazer quaisquer comentários ou sugestões. Faça as alterações necessárias e continue a discutir o pull request com os revisores até que esteja pronto para ser mesclado.
+
