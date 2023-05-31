@@ -4,6 +4,8 @@ public class Carga {
     private double valorDeclarado;
     private int tempoMaximo;
     private TipoCarga tipoCarga;
+    private Porto origem;
+    private Porto destino;
 
     public Carga(int identificador, int peso, double valorDeclarado, int tempoMaximo, TipoCarga tipoCarga) {
         this.identificador = identificador;
@@ -34,7 +36,11 @@ public class Carga {
     }
 
     public double calculaPrecoRegiao() {
-        return 0.0;
+        if (origem.getPais().equals(destino.getPais())){
+            return 10000.0;
+        }else{
+            return 50000.0;
+        }
     }
 
     public int getIdentificador() {
