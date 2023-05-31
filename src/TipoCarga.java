@@ -1,4 +1,4 @@
-public class TipoCarga {
+public abstract class  TipoCarga {
     private int numero;
     private String descricao;
 

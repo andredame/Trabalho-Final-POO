@@ -3,12 +3,14 @@ public class Carga {
     private int peso;
     private double valorDeclarado;
     private int tempoMaximo;
+    private TipoCarga tipoCarga;
 
-    public Carga(int identificador, int peso, double valorDeclarado, int tempoMaximo) {
+    public Carga(int identificador, int peso, double valorDeclarado, int tempoMaximo, TipoCarga tipoCarga) {
         this.identificador = identificador;
         this.peso = peso;
         this.valorDeclarado = valorDeclarado;
         this.tempoMaximo = tempoMaximo;
+        this.tipoCarga=tipoCarga;
     }
 
     public double calculaPrecoFrete() {
@@ -21,7 +23,14 @@ public class Carga {
     }
 
     public double calculaPrecoPeso() {
-        return 0.0;
+        if (tipoCarga instanceof Perecivel){
+            return peso*2.0;
+        }else if (tipoCarga instanceof Duravel){
+            Duravel aux=(Duravel) tipoCarga;
+            return peso*1.5*aux.getPercentualImposto();
+        }else{
+           return 0.0;
+        }
     }
 
     public double calculaPrecoRegiao() {
