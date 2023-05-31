@@ -1,3 +1,4 @@
+package Objetos;
 public class Duravel extends TipoCarga{
 
     

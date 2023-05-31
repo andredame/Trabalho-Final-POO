@@ -1,4 +1,5 @@
-public abstract class  TipoCarga {
+package Objetos;
+public class  TipoCarga {
     private int numero;
     private String descricao;
 

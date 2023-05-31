@@ -1,3 +1,4 @@
+package Objetos;
 public class Perecivel extends TipoCarga {
     private String origem;
     private int validade;
@@ -7,7 +8,6 @@ public class Perecivel extends TipoCarga {
         this.origem = origem;
         this.validade = validade;
     }
-    
     public String getOrigem() {
         return origem;
     }

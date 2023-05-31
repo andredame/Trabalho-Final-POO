@@ -1,3 +1,4 @@
+package Objetos;
 public class Cliente {
     private int cod;
     private String nome;
