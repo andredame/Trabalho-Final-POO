@@ -6,6 +6,7 @@ import java.nio.charset.Charset;
 import java.util.Scanner;
 
 import Colecoes.*;
+
 import Objetos.*;
 
 public class ACMEHandelsschifffahrtsgesellschaft {
@@ -257,23 +258,24 @@ public class ACMEHandelsschifffahrtsgesellschaft {
             String linhaDoArquivo[] = a.split(";");
             numero = Integer.parseInt(linhaDoArquivo[0]);
             descricao = linhaDoArquivo[1];
-            if (linhaDoArquivo[2].equals("DURAVEL")) {
-                // Duravel a=linhaDoArquivo[2];
-                String setor = linhaDoArquivo[3];
-                String material = linhaDoArquivo[4];
-                double nsei = Double.parseDouble(linhaDoArquivo[5]);
-                // TipoCarga tipoCarga=new TipoCarga(numero,descricao,setor,material,nsei);
-                // colecaoTipoCarga.addTipoCarga(tipoCarga);
-            } else {
-                // Duravel a=linhaDoArquivo[2];
-                String origem = linhaDoArquivo[3];
-                int tempomaximo = Integer.parseInt(linhaDoArquivo[4]);
-
-                // TipoCarga tipoCarga=new TipoCarga(numero,descricao,origem,tempomax);
-                // colecaoTipoCarga.addTipoCarga(tipoCarga);
-
+            if (linhaDoArquivo[2].equals("DURAVEL") || linhaDoArquivo[2].equals("PERECIVEL")){
+                if (linhaDoArquivo[2].equals("DURAVEL")) {
+                    
+                    String setor = linhaDoArquivo[3];
+                    String material = linhaDoArquivo[4];
+                    double ipi = Double.parseDouble(linhaDoArquivo[5]);
+                    Duravel carga=new Duravel(numero,descricao,setor,material,ipi);
+                    colecaoTipoCarga.addTipoCarga(carga);
+                } else {
+                    
+                    String origem = linhaDoArquivo[3];
+                    int tempomaximo = Integer.parseInt(linhaDoArquivo[4]);
+                    Perecivel carga=new Perecivel(numero,descricao,origem,tempomaximo);
+                    colecaoTipoCarga.addTipoCarga(carga);
+    
+                }
             }
-
+            
         }
     }
 
@@ -282,14 +284,16 @@ public class ACMEHandelsschifffahrtsgesellschaft {
      */
     public void leCargas() {
         int codigo;
-        int cliente;
+        String cliente;
         String origem;
         String destino;
         double peso;
         double valorDeclarado;
-        double tempoMaximo;
-        int tipoCarga;
-        // RAPIDO/BARATO
+        int tempoMaximo;
+        String tipoCarga;
+        Prioridade p ;
+        Situacao s=null;
+        
         // SITUACAO
         String a = leCarga.nextLine();
         while (leCarga.hasNextLine()) {
@@ -297,19 +301,39 @@ public class ACMEHandelsschifffahrtsgesellschaft {
             System.out.println(a);
             String linhaDoArquivo[] = a.split(";");
             codigo = Integer.parseInt(linhaDoArquivo[0]);
-            cliente = Integer.parseInt(linhaDoArquivo[1]);
+            cliente = linhaDoArquivo[1];
             origem = linhaDoArquivo[2];
             destino = linhaDoArquivo[3];
             peso = Double.parseDouble(linhaDoArquivo[4]);
             valorDeclarado = Double.parseDouble(linhaDoArquivo[5]);
-            tempoMaximo = Double.parseDouble(linhaDoArquivo[6]);
-            tipoCarga = Integer.parseInt(linhaDoArquivo[7]);
-            // prioridade
-            // situacao
-            // Carga carga=new Carga(codigo, cliente, valorDeclarado, tipoCarga, null);
-
-            // colecaoCarga.addCarga(carga);
-
+            tempoMaximo = Integer.parseInt(linhaDoArquivo[6]);
+            tipoCarga = linhaDoArquivo[7];
+            if (linhaDoArquivo[8].equals("RAPIDO")) {
+                p= Prioridade.RAPIDO;
+            }
+            else{
+                p= Prioridade.BARATO;
+            }
+            
+            switch (linhaDoArquivo[9].toUpperCase()) {
+                case "PENDENTE":
+                    s = Situacao.PENDENTE;
+                    break;
+                case "LOCADO":
+                    s = Situacao.LOCADO;
+                    break;
+                case "CANCELADO":
+                    s = Situacao.CANCELADO;
+                    break;
+                case "FINALIZADO":
+                    s = Situacao.FINALIZADO;
+                    break;
+                default :
+                    System.out.println("ERRO SITUACAO");
+                    break;
+            }   
+            Carga c = new Carga(codigo, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, tipoCarga, p, s);
+            colecaoCarga.addCarga(c);
         }
     }
 }

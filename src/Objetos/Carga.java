@@ -1,16 +1,28 @@
 package Objetos;
 public class Carga {
     private int identificador;
-    private int peso;
+    private String Cliente;
+    private String origem;
+    private String destino;
+    private double peso;
     private double valorDeclarado;
     private int tempoMaximo;
-
-    public Carga(int identificador, int peso, double valorDeclarado, int tempoMaximo, TipoCarga tipoCarga) {
+    private String tipoCarga;
+    private Prioridade p;
+    private Situacao s;
+    
+    public Carga(int identificador, String cliente, String origem, String destino, double peso, double valorDeclarado,
+            int tempoMaximo, String tipoCarga, Prioridade p, Situacao s) {
         this.identificador = identificador;
+        Cliente = cliente;
+        this.origem = origem;
+        this.destino = destino;
         this.peso = peso;
         this.valorDeclarado = valorDeclarado;
         this.tempoMaximo = tempoMaximo;
-        
+        this.tipoCarga = tipoCarga;
+        this.p = p;
+        this.s = s;
     }
 
     public double calculaPrecoFrete() {
@@ -38,7 +50,7 @@ public class Carga {
         this.identificador = identificador;
     }
 
-    public int getPeso() {
+    public double getPeso() {
         return peso;
     }
 
