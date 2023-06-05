@@ -1,4 +1,5 @@
-public class TipoCarga {
+package Objetos;
+public class  TipoCarga {
     private int numero;
     private String descricao;
 
@@ -7,6 +8,7 @@ public class TipoCarga {
         this.numero = numero;
         this.descricao = descricao;
     }
+    
     public int getNumero() {
         return numero;
     }
