@@ -5,7 +5,17 @@ import java.io.PrintStream;
 import java.nio.charset.Charset;
 import java.util.Scanner;
 
+import Colecoes.*;
+import Objetos.*;
+
 public class ACMEHandelsschifffahrtsgesellschaft {
+
+    private ColecaoPortos colecaoPortos = new ColecaoPortos();
+    private ColecaoTipoCarga colecaoTipoCarga = new ColecaoTipoCarga();
+    private Container colecaoCarga = new Container();
+    private Freguesia colecaoClientes = new Freguesia();
+    private Frota colecaoNavios = new Frota();
+    private Mapa colecaoDistancias = new Mapa();
 
     private Scanner memoryCard = null;
     private Scanner lePorto = null;
@@ -116,7 +126,7 @@ public class ACMEHandelsschifffahrtsgesellschaft {
         } catch (Exception e) {
             System.out.println(e);
         }
-        
+
     }
 
     public void executa() {
@@ -148,13 +158,19 @@ public class ACMEHandelsschifffahrtsgesellschaft {
      * Le e cadastra as informações do arquivo especifico para o Porto
      */
     public void lePorto() {
+        int codigoPorto;
+        String nomePorto;
+        String paisPorto;
         String a = lePorto.nextLine();
         while (lePorto.hasNextLine()) {
             a = lePorto.nextLine();
             System.out.println(a);
             String linhaDoArquivo[] = a.split(";");
-            // System.out.println(linhaDoArquivo[0]);
-            // System.out.println(av);
+            codigoPorto = Integer.parseInt(linhaDoArquivo[0]);
+            nomePorto = linhaDoArquivo[1];
+            paisPorto = linhaDoArquivo[2];
+            Porto porto = new Porto(codigoPorto, nomePorto, paisPorto);
+            colecaoPortos.addPorto(porto);
 
         }
     }
@@ -163,13 +179,20 @@ public class ACMEHandelsschifffahrtsgesellschaft {
      * Le e cadastra as informações do arquivo especifico para a Distancia
      */
     public void leDistancia() {
+        String origem;
+        String destino;
+        double distancia;
         String a = leDistancia.nextLine();
         while (leDistancia.hasNextLine()) {
             a = leDistancia.nextLine();
             System.out.println(a);
             String linhaDoArquivo[] = a.split(";");
-            // System.out.println(linhaDoArquivo[0]);
-            // System.out.println(av);
+            origem = linhaDoArquivo[0];
+            destino = linhaDoArquivo[1];
+            distancia = Double.parseDouble(linhaDoArquivo[2]);
+
+            Distancia obj = new Distancia(origem, destino, distancia);
+            colecaoDistancias.addNoMapa(obj);
 
         }
     }
@@ -178,14 +201,23 @@ public class ACMEHandelsschifffahrtsgesellschaft {
      * Le e cadastra as informações do arquivo especifico para o Navio
      */
     public void leNavios() {
+        String nome;
+        double velocidade;
+        double autonomia;
+        double customilhaBasico;
+
         String a = leNavios.nextLine();
         while (leNavios.hasNextLine()) {
             a = leNavios.nextLine();
             System.out.println(a);
             String linhaDoArquivo[] = a.split(";");
-            // System.out.println(linhaDoArquivo[0]);
-            // System.out.println(av);
+            nome = linhaDoArquivo[0];
+            velocidade = Double.parseDouble(linhaDoArquivo[1]);
+            autonomia = Double.parseDouble(linhaDoArquivo[2]);
+            customilhaBasico = Double.parseDouble(linhaDoArquivo[3]);
 
+            Navio navio = new Navio(nome, velocidade, autonomia, customilhaBasico);
+            colecaoNavios.addNavio(navio);
         }
     }
 
@@ -193,13 +225,20 @@ public class ACMEHandelsschifffahrtsgesellschaft {
      * Le e cadastra as informações do arquivo especifico para Cliente
      */
     public void leClientes() {
+        int cod;
+        String nome;
+        String email;
         String a = leCliente.nextLine();
         while (leCliente.hasNextLine()) {
             a = leCliente.nextLine();
             System.out.println(a);
             String linhaDoArquivo[] = a.split(";");
-            // System.out.println(linhaDoArquivo[0]);
-            // System.out.println(av);
+            cod = Integer.parseInt(linhaDoArquivo[0]);
+            nome = linhaDoArquivo[1];
+            email = linhaDoArquivo[2];
+
+            Cliente cliente = new Cliente(cod, nome, email);
+            colecaoClientes.addCliente(cliente);
 
         }
     }
@@ -208,13 +247,32 @@ public class ACMEHandelsschifffahrtsgesellschaft {
      * Le e cadastra as informações do arquivo especifico para o TipoCarga
      */
     public void leTiposCargas() {
+        int numero;
+        String descricao;
+
         String a = leTipoCarga.nextLine();
         while (leTipoCarga.hasNextLine()) {
             a = leTipoCarga.nextLine();
             System.out.println(a);
             String linhaDoArquivo[] = a.split(";");
-            // System.out.println(linhaDoArquivo[0]);
-            // System.out.println(av);
+            numero = Integer.parseInt(linhaDoArquivo[0]);
+            descricao = linhaDoArquivo[1];
+            if (linhaDoArquivo[2].equals("DURAVEL")) {
+                // Duravel a=linhaDoArquivo[2];
+                String setor = linhaDoArquivo[3];
+                String material = linhaDoArquivo[4];
+                double nsei = Double.parseDouble(linhaDoArquivo[5]);
+                // TipoCarga tipoCarga=new TipoCarga(numero,descricao,setor,material,nsei);
+                // colecaoTipoCarga.addTipoCarga(tipoCarga);
+            } else {
+                // Duravel a=linhaDoArquivo[2];
+                String origem = linhaDoArquivo[3];
+                int tempomaximo = Integer.parseInt(linhaDoArquivo[4]);
+
+                // TipoCarga tipoCarga=new TipoCarga(numero,descricao,origem,tempomax);
+                // colecaoTipoCarga.addTipoCarga(tipoCarga);
+
+            }
 
         }
     }
@@ -223,13 +281,34 @@ public class ACMEHandelsschifffahrtsgesellschaft {
      * Le e cadastra as informações do arquivo especifico para o Carga
      */
     public void leCargas() {
+        int codigo;
+        int cliente;
+        String origem;
+        String destino;
+        double peso;
+        double valorDeclarado;
+        double tempoMaximo;
+        int tipoCarga;
+        // RAPIDO/BARATO
+        // SITUACAO
         String a = leCarga.nextLine();
         while (leCarga.hasNextLine()) {
             a = leCarga.nextLine();
             System.out.println(a);
             String linhaDoArquivo[] = a.split(";");
-            // System.out.println(linhaDoArquivo[0]);
-            // System.out.println(av);
+            codigo = Integer.parseInt(linhaDoArquivo[0]);
+            cliente = Integer.parseInt(linhaDoArquivo[1]);
+            origem = linhaDoArquivo[2];
+            destino = linhaDoArquivo[3];
+            peso = Double.parseDouble(linhaDoArquivo[4]);
+            valorDeclarado = Double.parseDouble(linhaDoArquivo[5]);
+            tempoMaximo = Double.parseDouble(linhaDoArquivo[6]);
+            tipoCarga = Integer.parseInt(linhaDoArquivo[7]);
+            // prioridade
+            // situacao
+            // Carga carga=new Carga(codigo, cliente, valorDeclarado, tipoCarga, null);
+
+            // colecaoCarga.addCarga(carga);
 
         }
     }
