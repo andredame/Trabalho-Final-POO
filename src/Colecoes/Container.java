@@ -12,5 +12,8 @@ public class Container {
     public boolean addCarga(Carga carga){
         return cargas.add(carga);
     }
+    public ArrayList<Carga> getCargas() {
+        return cargas;
+    }
 
 }

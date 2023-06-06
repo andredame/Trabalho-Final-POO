@@ -1,5 +1,4 @@
-
-import Objetos.*;
+package Objetos;
 
 public enum Prioridade {
     BARATO,

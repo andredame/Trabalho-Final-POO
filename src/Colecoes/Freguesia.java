@@ -12,5 +12,8 @@ public class Freguesia{
     public boolean addCliente(Cliente cliente){
         return clientes.add(cliente);
     }
+    public ArrayList<Cliente> getCliente() {
+        return clientes;
+    }
 
 }
