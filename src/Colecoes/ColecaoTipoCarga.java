@@ -5,11 +5,15 @@ import Objetos.TipoCarga  ;
 public class ColecaoTipoCarga {
     private ArrayList <TipoCarga> tipos;
 
+    
     public ColecaoTipoCarga() {
         tipos= new ArrayList<>();
     }
     public boolean addTipoCarga(TipoCarga tipoCarga){
         return tipos.add(tipoCarga);
+    }
+    public ArrayList<TipoCarga> getTipos() {
+        return tipos;
     }
 
 }

@@ -10,5 +10,8 @@ public class Mapa {
     }
     public boolean addNoMapa(Distancia percurso){
         return mapa.add(percurso);
+    }
+    public ArrayList<Distancia> getDistancia() {
+        return mapa;
     } 
 }
