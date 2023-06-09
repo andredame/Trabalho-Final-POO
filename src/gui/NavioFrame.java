@@ -1,10 +1,14 @@
+package gui;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PortoFrame extends JFrame implements ActionListener{
+
+public class NavioFrame extends JFrame implements ActionListener{
+
     private JPanel nomeEmpresa;
     private int xBotao;
     private int yBotao;
@@ -12,52 +16,29 @@ public class PortoFrame extends JFrame implements ActionListener{
     private int heightBotao;
     private Color colorOfButton;
     private Color colorOfLetter;
-    private Font fonte; 
-
+    private Font fonte;
     private JPanel nome;
-    private JPanel id;
-    private JPanel pais;
+    private JTextField nomeField;
+    private JPanel velocidade;
+    private JTextField velocidadeField;
+    private JPanel autonomia;
+    private JTextField autonomiaField;
+    private JPanel CustoMilha;
+    private JTextField CustoMilhaField; 
     private JButton selectButton;
     private JButton voltarMenu;
-    private JTextField fieldNome;
-    private JTextField fieldId;
-    private JTextField fieldPais;
     private JLabel errorMessage;
 
-    
-    
-
-    
-
-    public PortoFrame(){
+    public NavioFrame(){
         super();
         colorOfButton = Color.DARK_GRAY;
         colorOfLetter = Color.WHITE;
         fonte=new Font("Serif", Font.BOLD, 20);
-
         xBotao=100;
         yBotao=150;
         widthBotao=300;
         heightBotao=40;
 
-
-        setNome();
-        setId();
-        setPais();
-        setNomeEmpresa();
-        setButtonSelect();
-        setDescricaoPagina();
-        setButtonBack();
-
-        setErrorMessage();
-        this.add(errorMessage);
-        errorMessage.setVisible(false);
-        this.add(nome);
-        this.add(nomeEmpresa);
-        this.add(id);
-        this.add(pais);
-        this.add(selectButton);
-        this.add(voltarMenu);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500, 600);
         this.setLayout(null);
@@ -65,18 +46,34 @@ public class PortoFrame extends JFrame implements ActionListener{
         this.setLocationRelativeTo(null);
         this.setResizable(false);
 
-
+        setDescricaoPagina();
+        setButtonBack();
+        this.add(voltarMenu);
+        setButtonSelect();
+        this.add(selectButton);
+        setNomeEmpresa();
+        this.add(nomeEmpresa);
+        setNomePanel();
+        this.add(nome);
+        setVelocidadePanel();
+        this.add(velocidade);
+        setAutonomiaPanel();
+        this.add(autonomia);
+        setCustoMilhaPanel();
+        this.add(CustoMilha);
+        setErrorMessage();
+        this.add(errorMessage);
+        errorMessage.setVisible(false);
         
     }
     private void setDescricaoPagina(){
         JPanel descricaoPagina = new JPanel();
-        JLabel label = new JLabel("Cadastrar Porto");
-        label.setForeground(colorOfButton);
+        JLabel label = new JLabel("Cadastrar Navio");
         label.setFont(new Font ("",Font.BOLD, 20));
+        label.setForeground(colorOfButton);
         descricaoPagina.add(label);
         descricaoPagina.setBounds(0, 100, 500, 40);
         this.add(descricaoPagina);
-
     }
     private void setNomeEmpresa(){
         //Panel para ter o nome 
@@ -89,44 +86,52 @@ public class PortoFrame extends JFrame implements ActionListener{
         nomeEmpresa.setBackground(colorOfButton);
         
     }
-    private void setNome(){
+    private void setNomePanel(){
         nome=new JPanel();
         JLabel label= new JLabel("Nome:");
         label.setForeground(colorOfLetter);
-        fieldNome= new JTextField(11);
+        nomeField= new JTextField(11);
         nome.setBackground(colorOfButton);
         nome.setBounds(xBotao,yBotao,widthBotao,heightBotao);
         nome.add(label);
-        nome.add(fieldNome);
+        nome.add(nomeField);
         
     }
-    private void setId(){
-
-        JLabel label= new JLabel("ID:");
+    private void setVelocidadePanel(){
+        velocidade=new JPanel();
+        JLabel label= new JLabel("Velocidade:");
         label.setForeground(colorOfLetter);
-        fieldId= new JTextField(11);
-        id=new JPanel();
-        id.setBounds(xBotao,yBotao+75,widthBotao,heightBotao);
-        id.setBackground(colorOfButton);
-        id.add(label);
-        id.add(fieldId);
+        velocidadeField= new JTextField(11);
+        velocidade.setBackground(colorOfButton);
+        velocidade.setBounds(xBotao,yBotao+75,widthBotao,heightBotao);
+        velocidade.add(label);
+        velocidade.add(velocidadeField);
+        
     }
-    private void setPais(){
-        pais=new JPanel();
-        pais.setBounds(xBotao,yBotao+150,widthBotao,heightBotao);
-        JLabel label= new JLabel("País:");
+    private void setAutonomiaPanel(){
+        autonomia=new JPanel();
+        JLabel label= new JLabel("Autonomia:");
         label.setForeground(colorOfLetter);
-        fieldPais= new JTextField(11);
-        pais.setBackground(colorOfButton);
-        pais.add(label);
-        pais.add(fieldPais);
-        
-        
+        autonomiaField= new JTextField(11);
+        autonomia.setBackground(colorOfButton);
+        autonomia.setBounds(xBotao,yBotao+150,widthBotao,heightBotao);
+        autonomia.add(label);
+        autonomia.add(autonomiaField);
+    }
+    private void setCustoMilhaPanel(){
+        CustoMilha=new JPanel();
+        JLabel label= new JLabel("Custo por milha:");
+        label.setForeground(colorOfLetter);
+        CustoMilhaField= new JTextField(11);
+        CustoMilha.setBackground(colorOfButton);
+        CustoMilha.setBounds(xBotao,yBotao+225,widthBotao,heightBotao);
+        CustoMilha.add(label);
+        CustoMilha.add(CustoMilhaField);
     }
     private void setButtonSelect(){
         //Botao de carregar dados
         selectButton = new JButton("Cadastrar");
-        selectButton.setBounds(150, 400, 200, 40);
+        selectButton.setBounds(150, 445, 200, 40);
         selectButton.setFont(fonte);
         selectButton.setFocusable(false);
         selectButton.setForeground(colorOfLetter);
@@ -147,30 +152,31 @@ public class PortoFrame extends JFrame implements ActionListener{
     }
     private void setErrorMessage(){
         errorMessage = new JLabel("Erro ao Cadastrar");
-        errorMessage.setBackground(Color.BLACK);
         errorMessage.setForeground(Color.RED);
         errorMessage.setFont(new Font("Serif", Font.BOLD, 15));
         errorMessage.setBounds(175, 300, 500, 400);
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == selectButton){
             try{
-                String nome = fieldNome.getText();
-                int id =Integer.parseInt(fieldId.getText());
-                String pais = fieldPais.getText();
-                //Porto p = new Porto(nome,id,pais);
+                String n =nomeField.getText();
+                double v= Double.parseDouble(velocidadeField.getText());
+                double auto = Double.parseDouble(autonomiaField.getText());
+                double custo = Double.parseDouble(CustoMilhaField.getText());
+                //Navio n = new Navio(n,v,auto,custo);
+                //ColecaoNavio.add(n);
                 errorMessage.setVisible(false);
+                
             }catch(NumberFormatException except){
                 errorMessage.setVisible(true);
             }
-
         }
         if(e.getSource() == voltarMenu){
             MenuInicial menu = new MenuInicial();
             dispose();
         }
     }
-    
 }

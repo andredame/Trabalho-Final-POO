@@ -1,3 +1,4 @@
+package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -62,12 +63,12 @@ public class ViagemFrame extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Check if Option 1 is selected
+        
         if (option1RadioButton.isSelected()) {
             System.out.println("Option 1 selected");
         }
 
-        // Check if Option 2 is selected
+        
         if (option2RadioButton.isSelected()) {
             System.out.println("Option 2 selected");
         }
