@@ -1,12 +1,15 @@
 package gui;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import Objetos.*;
@@ -17,6 +20,7 @@ public class MenuInicial extends JFrame implements ActionListener{
     private ColecaoPortos colecaoPortos;
     private Frota frota;
     private Freguesia freguesia;
+    private ColecaoTipoCarga colecaoTipoCarga;
     private  JButton cadastrarNavioButton;
     private JButton naviosCadastradosButton;
     private JButton cadastrarPortoButton;
@@ -24,6 +28,7 @@ public class MenuInicial extends JFrame implements ActionListener{
     private JButton cadastrarCliente;
     private JButton clientesCadastrados;
     private JButton cadastrarViagem;
+    private JButton cadastrarTipoCarga;
 
 
     public MenuInicial() {
@@ -31,12 +36,11 @@ public class MenuInicial extends JFrame implements ActionListener{
         setLayout(new FlowLayout());
         setSize(500, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
+        
         
         frota = new Frota();
         freguesia=new Freguesia();
-
-
+        colecaoTipoCarga = new ColecaoTipoCarga();
         colecaoPortos = new ColecaoPortos();
 
 
@@ -47,6 +51,7 @@ public class MenuInicial extends JFrame implements ActionListener{
         cadastrarCliente = new JButton("Cadastrar Cliente");
         clientesCadastrados=new JButton("Clientes Cadastrados");
         cadastrarViagem =new JButton("Cadastrar Viagem");
+        cadastrarTipoCarga = new JButton("Cadastrar Tipo de Carga");
 
         cadastrarViagem.addActionListener(this);
         cadastrarNavioButton.addActionListener(this);
@@ -55,13 +60,17 @@ public class MenuInicial extends JFrame implements ActionListener{
         portosCadastradosButton.addActionListener(this);
         cadastrarCliente.addActionListener(this);
         clientesCadastrados.addActionListener(this);
-        add(cadastrarViagem);
-        add(cadastrarCliente);
-        add(clientesCadastrados);
-        add(cadastrarNavioButton);
-        add(naviosCadastradosButton);
-        add(cadastrarPortoButton);
-        add(portosCadastradosButton);
+        cadastrarTipoCarga.addActionListener(this);
+
+
+        this.add(cadastrarViagem);
+        this.add(cadastrarTipoCarga);
+        this.add(cadastrarCliente);
+        this.add(clientesCadastrados);
+        this.add(cadastrarNavioButton);
+        this.add(naviosCadastradosButton);
+        this.add(cadastrarPortoButton);
+        this.add(portosCadastradosButton);
         setVisible(true);
     }
     private void cadastrarCliente() {
@@ -109,6 +118,95 @@ public class MenuInicial extends JFrame implements ActionListener{
             }
         }
     }
+    
+    private void cadastrarNovoTipoDeCarga() {
+        while (true) {
+            try {
+                JTextField numeroTextField = new JTextField(10);
+                JTextField descricaoTextField = new JTextField(10);
+                JRadioButton perecivelRadioButton = new JRadioButton("Perecível");
+                JRadioButton duravelRadioButton = new JRadioButton("Durável");
+                ButtonGroup categoriaButtonGroup = new ButtonGroup();
+                categoriaButtonGroup.add(perecivelRadioButton);
+                categoriaButtonGroup.add(duravelRadioButton);
+
+                JPanel categoriaPanel = new JPanel();
+                categoriaPanel.setLayout(new GridLayout(1, 2));
+                categoriaPanel.add(perecivelRadioButton);
+                categoriaPanel.add(duravelRadioButton);
+
+                JTextField origemTextField = new JTextField("* obrigatorio para tipo perecivel",20);
+                JTextField tempoMaximoTextField = new JTextField("*obrigatorio para tipo perecivel",20);
+                JTextField setorTextField = new JTextField("* obrigatorio para tipo Duravel",20);
+                JTextField materialTextField = new JTextField("*obrigatorio para tipo Duravel",20);
+                JTextField ipiTextField = new JTextField("*obrigatorio para tipo Duravel",20);
+
+                JPanel perecivelPanel = new JPanel();
+                perecivelPanel.setLayout(new GridLayout(3, 2));
+                perecivelPanel.add(new JLabel("Origem:"));
+                perecivelPanel.add(origemTextField);
+                perecivelPanel.add(new JLabel("Tempo Máximo:"));
+                perecivelPanel.add(tempoMaximoTextField);
+
+                JPanel duravelPanel = new JPanel();
+                duravelPanel.setLayout(new GridLayout(3, 5));
+                duravelPanel.add(new JLabel("Setor:*Duravel"));
+                duravelPanel.add(setorTextField);
+                duravelPanel.add(new JLabel("Material:*duravel"));
+                duravelPanel.add(materialTextField);
+                duravelPanel.add(new JLabel("IPI:*duravel"));
+                duravelPanel.add(ipiTextField);
+
+                Object[] message = {
+                    "Número do tipo de carga:", numeroTextField,
+                    "Descrição:", descricaoTextField,
+                    "Categoria:", categoriaPanel,
+                    perecivelPanel,
+                    duravelPanel
+                };
+
+                int option = JOptionPane.showOptionDialog(this, message, "Cadastrar Tipo de Carga", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+
+                if (option == JOptionPane.OK_OPTION) {
+                    int numero = Integer.parseInt(numeroTextField.getText());
+
+                    if (colecaoTipoCarga.procurarNumeroCarga(numero)) {
+                        JOptionPane.showMessageDialog(this, "Tipo de carga com esse número já foi cadastrado. Por favor, digite outro número.");
+                    } else {
+                        String descricao = descricaoTextField.getText();
+                        String categoria = "";
+                        String origem = "";
+                        String setor = "";
+                        String tempoMaximo = "";
+                        String material = "";
+                        String ipi = "";
+
+                        if (perecivelRadioButton.isSelected()) {
+                            categoria = "PERECIVEL";
+                            origem = origemTextField.getText();
+                            tempoMaximo = tempoMaximoTextField.getText();
+                        } else if (duravelRadioButton.isSelected()) {
+                            categoria = "DURAVEL";
+                            setor = setorTextField.getText();
+                            material = materialTextField.getText();
+                            ipi = ipiTextField.getText();
+                        }
+                        
+                        String linha = numero + ";" + descricao + ";" + categoria + ";" + origem + ";" + tempoMaximo + ";" + setor + ";" + material + ";" + ipi;
+                        JOptionPane.showMessageDialog(this, "Tipo de carga cadastrado com sucesso!\n" + linha);
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Entrada inválida. Por favor, insira um valor numérico válido para o número do tipo de carga.");
+            }
+        }
+    }
+
+
+    
     private void exibirClientesCadastrados() {
         StringBuilder sb = new StringBuilder();
         for (Cliente cliente : freguesia.getCliente()) {
@@ -116,6 +214,9 @@ public class MenuInicial extends JFrame implements ActionListener{
             sb.append("Nome: ").append(cliente.getNome()).append("\n");
             sb.append("Email: ").append(cliente.getEmail()).append("\n");
             sb.append("--------------------\n");
+        }
+        if (freguesia.getCliente().size() ==0){
+            sb.append("Nenhum cliente cadastrado.");
         }
         JOptionPane.showMessageDialog(this, sb.toString());
     }
@@ -202,7 +303,7 @@ public class MenuInicial extends JFrame implements ActionListener{
                 }
                 
                 
-                JOptionPane.showMessageDialog(this, mensagem);
+                //JOptionPane.showMessageDialog(this, mensagem);
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Entrada inválida. Por favor, insira um valor válido.");
@@ -219,7 +320,9 @@ public class MenuInicial extends JFrame implements ActionListener{
             sb.append("País: ").append(porto.getPais()).append("\n");
             sb.append("--------------------\n");
         }
-
+         if (colecaoPortos.getPortos().size() ==0){
+            sb.append("Nenhum Porto cadastrado.");
+        }
         JOptionPane.showMessageDialog(this, sb.toString());
     }
 
@@ -286,7 +389,9 @@ public class MenuInicial extends JFrame implements ActionListener{
             sb.append("Custo por milha: ").append(navio.getCustoPorMilhaBasico()).append("\n");
             sb.append("--------------------\n");
         }
-
+        if (frota.getNavios().size() ==0){
+            sb.append("Nenhum Navio cadastrado.");
+        }
         JOptionPane.showMessageDialog(this, sb.toString());
     }
 
@@ -316,6 +421,9 @@ public class MenuInicial extends JFrame implements ActionListener{
         }
          if(e.getSource() == cadastrarViagem){
             cadastrarViagem();
+         }
+         if(e.getSource() == cadastrarTipoCarga){
+            cadastrarNovoTipoDeCarga();
          }
     }
     

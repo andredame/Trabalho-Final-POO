@@ -15,5 +15,13 @@ public class ColecaoTipoCarga {
     public ArrayList<TipoCarga> getTipos() {
         return tipos;
     }
+    public boolean procurarNumeroCarga(int numero){
+        for (TipoCarga tipoCarga : tipos) {
+             if (tipoCarga.getNumero() == numero) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
