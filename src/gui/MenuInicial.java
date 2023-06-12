@@ -18,30 +18,33 @@ import Colecoes.*;
 
 public class MenuInicial extends JFrame implements ActionListener{
     private ColecaoPortos colecaoPortos;
-    private Frota frota;
-    private Freguesia freguesia;
+    private ColecaoNavio colecaoNavio;
+    private ColecaoCarga colecaoCarga;
     private ColecaoTipoCarga colecaoTipoCarga;
-    private  JButton cadastrarNavioButton;
+    private ColecaoCliente colecaoCliente;
+    private JButton cadastrarNavioButton;
+    private JButton cadastrarCarga;
     private JButton naviosCadastradosButton;
     private JButton cadastrarPortoButton;
     private JButton portosCadastradosButton;
     private JButton cadastrarCliente;
     private JButton clientesCadastrados;
     private JButton cadastrarViagem;
-    private JButton cadastrarTipoCarga;
+    private JButton cadastrarTipo;
 
 
     public MenuInicial() {
         super("Menu Inicial");
         setLayout(new FlowLayout());
-        setSize(500, 600);
+        setSize(700, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         
-        frota = new Frota();
-        freguesia=new Freguesia();
+        colecaoNavio = new ColecaoNavio();
+        colecaoCliente=new ColecaoCliente();
         colecaoTipoCarga = new ColecaoTipoCarga();
         colecaoPortos = new ColecaoPortos();
+        colecaoCarga = new ColecaoCarga();
 
 
         cadastrarNavioButton = new JButton("Cadastrar Navio");
@@ -51,8 +54,10 @@ public class MenuInicial extends JFrame implements ActionListener{
         cadastrarCliente = new JButton("Cadastrar Cliente");
         clientesCadastrados=new JButton("Clientes Cadastrados");
         cadastrarViagem =new JButton("Cadastrar Viagem");
-        cadastrarTipoCarga = new JButton("Cadastrar Tipo de Carga");
+        cadastrarTipo = new JButton("Cadastrar Tipo de Carga");
+        cadastrarCarga = new JButton("Cadastrar Carga");
 
+        cadastrarCarga.addActionListener(this);
         cadastrarViagem.addActionListener(this);
         cadastrarNavioButton.addActionListener(this);
         naviosCadastradosButton.addActionListener(this);
@@ -60,11 +65,11 @@ public class MenuInicial extends JFrame implements ActionListener{
         portosCadastradosButton.addActionListener(this);
         cadastrarCliente.addActionListener(this);
         clientesCadastrados.addActionListener(this);
-        cadastrarTipoCarga.addActionListener(this);
+        cadastrarTipo.addActionListener(this);
 
-
+        this.add(cadastrarCarga);
         this.add(cadastrarViagem);
-        this.add(cadastrarTipoCarga);
+        this.add(cadastrarTipo);
         this.add(cadastrarCliente);
         this.add(clientesCadastrados);
         this.add(cadastrarNavioButton);
@@ -102,12 +107,12 @@ public class MenuInicial extends JFrame implements ActionListener{
                     String nomeCliente = nomeTextField.getText();
                     String emailCliente = emailTextField.getText();
 
-                    if (freguesia.procuraId(codCliente) || freguesia.procuraEmail(emailCliente)) {
+                    if (colecaoCliente.procuraId(codCliente) || colecaoCliente.procuraEmail(emailCliente)) {
                         JOptionPane.showMessageDialog(this, "Cliente com o mesmo código ou email já foi cadastrado. Por favor, verifique os dados inseridos.");
                         continue;
                     }
                     Cliente c=new Cliente(codCliente,nomeCliente,emailCliente);
-                    freguesia.addCliente(c);
+                    colecaoCliente.addCliente(c);
                     JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!");
                     break;
                 } else {
@@ -118,6 +123,81 @@ public class MenuInicial extends JFrame implements ActionListener{
             }
         }
     }
+    private void cadastrarCarga() {
+    while (true) {
+        try {
+            JTextField codCargaTextField = new JTextField(10);
+            JTextField clienteTextField = new JTextField(10);
+            JTextField origemTextField = new JTextField(10);
+            JTextField destinoTextField = new JTextField(10);
+            JTextField pesoTextField = new JTextField(10);
+            JTextField valorDeclaradoTextField = new JTextField(10);
+            JTextField tempoMaximoDeclaradoTextField = new JTextField(10);
+            JTextField tipoCargaTextField = new JTextField(10);
+            
+            JRadioButton rapidoRadioButton = new JRadioButton("Rápido");
+            JRadioButton baratoRadioButton = new JRadioButton("Barato");
+            ButtonGroup situacaoButtonGroup = new ButtonGroup();
+            situacaoButtonGroup.add(rapidoRadioButton);
+            situacaoButtonGroup.add(baratoRadioButton);
+
+            Object[] message = {
+                "Código da Carga:", codCargaTextField,
+                "Cliente:", clienteTextField,
+                "Origem:", origemTextField,
+                "peso", pesoTextField,
+                "Destino:", destinoTextField,
+                "Valor Declarado:", valorDeclaradoTextField,
+                "Tempo Máximo:", tempoMaximoDeclaradoTextField,
+                "Tipo de Carga:", tipoCargaTextField,
+                "Situação:",
+                rapidoRadioButton,
+                baratoRadioButton,
+                
+                
+            };
+
+            int option = JOptionPane.showOptionDialog(
+                this,
+                message,
+                "Cadastrar Carga",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                null
+            );
+
+            if (option == JOptionPane.OK_OPTION) {
+                int codCarga = Integer.parseInt(codCargaTextField.getText());
+                int cliente = Integer.parseInt(clienteTextField.getText());
+                String origem = origemTextField.getText();
+                String destino = destinoTextField.getText();
+                int peso = Integer.parseInt(pesoTextField.getText());
+                double valorDeclarado = Double.parseDouble(valorDeclaradoTextField.getText());
+                int tempoMaximo = Integer.parseInt(tempoMaximoDeclaradoTextField.getText());
+                int tipoCarga = Integer.parseInt(tipoCargaTextField.getText());
+                
+                if (rapidoRadioButton.isSelected()) {
+                    Carga carga = new Carga(tipoCarga, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, destino, Prioridade.RAPIDO, Situacao.PENDENTE);
+                    colecaoCarga.addCarga(carga);
+                } else if (baratoRadioButton.isSelected()) {
+                    Carga carga = new Carga(tipoCarga, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, destino, Prioridade.BARATO, Situacao.PENDENTE);
+                    colecaoCarga.addCarga(carga);
+                }
+                
+
+                JOptionPane.showMessageDialog(this, "Carga cadastrada com sucesso!");
+                break;
+            } else {
+                break;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Entrada inválida. Por favor, insira um valor numérico válido para os campos necessários.");
+        }
+    }
+}
+
     
     private void cadastrarNovoTipoDeCarga() {
         while (true) {
@@ -196,8 +276,8 @@ public class MenuInicial extends JFrame implements ActionListener{
                             colecaoTipoCarga.addTipoCarga(duravel);
                         }
                         
-                        String linha = numero + ";" + descricao + ";" + categoria + ";" + origem + ";" + tempoMaximo + ";" + setor + ";" + material + ";" + ipi;
-                        JOptionPane.showMessageDialog(this, "Tipo de carga cadastrado com sucesso!\n" + linha);
+                       
+                        JOptionPane.showMessageDialog(this, "Tipo de carga cadastrado com sucesso!");
                         break;
                     }
                 } else {
@@ -208,18 +288,16 @@ public class MenuInicial extends JFrame implements ActionListener{
             }
         }
     }
-
-
     
     private void exibirClientesCadastrados() {
         StringBuilder sb = new StringBuilder();
-        for (Cliente cliente : freguesia.getCliente()) {
+        for (Cliente cliente : colecaoCliente.getCliente()) {
             sb.append("Código: ").append(cliente.getCod()).append("\n");
             sb.append("Nome: ").append(cliente.getNome()).append("\n");
             sb.append("Email: ").append(cliente.getEmail()).append("\n");
             sb.append("--------------------\n");
         }
-        if (freguesia.getCliente().size() ==0){
+        if (colecaoCliente.getCliente().size() ==0){
             sb.append("Nenhum cliente cadastrado.");
         }
         JOptionPane.showMessageDialog(this, sb.toString());
@@ -243,7 +321,7 @@ public class MenuInicial extends JFrame implements ActionListener{
                 if (option == JOptionPane.OK_OPTION) {
                     int id = Integer.parseInt(idTextField.getText());
 
-                    if (colecaoPortos.getPortoPorId(id) ) {
+                    if (colecaoPortos.getPortoPorId(id)) {
                         JOptionPane.showMessageDialog(this,
                             "Porto com esse ID já foi cadastrado. Por favor, digite outro ID.");
                     } else {
@@ -351,7 +429,7 @@ public class MenuInicial extends JFrame implements ActionListener{
             if (option == JOptionPane.OK_OPTION) {
                 String nome = nomeTextField.getText();
 
-                if (frota.getNavios() != null && navioJaCadastrado(nome)) {
+                if (colecaoNavio.getNavios() != null && navioJaCadastrado(nome)) {
                     JOptionPane.showMessageDialog(this, "Navio com esse nome já foi cadastrado. Por favor, digite outro nome.");
                     continue;
                 }
@@ -361,7 +439,7 @@ public class MenuInicial extends JFrame implements ActionListener{
                 double custoPorMilhaBasico = Double.parseDouble(custoTextField.getText());
 
                 Navio navio = new Navio(nome, velocidade, autonomia, custoPorMilhaBasico);
-                frota.addNavio(navio);
+                colecaoNavio.addNavio(navio);
 
                 JOptionPane.showMessageDialog(this, "Navio cadastrado com sucesso!");
                 break;
@@ -376,7 +454,7 @@ public class MenuInicial extends JFrame implements ActionListener{
 
 
     private boolean navioJaCadastrado(String nome) {
-        for (Navio navio : frota.getNavios()) {
+        for (Navio navio : colecaoNavio.getNavios()) {
             if (navio.getNome().equalsIgnoreCase(nome)) {
                 return true;
             }
@@ -386,14 +464,14 @@ public class MenuInicial extends JFrame implements ActionListener{
 
     private void exibirNaviosCadastrados() {
         StringBuilder sb = new StringBuilder();
-        for (Navio navio : frota.getNavios()) {
+        for (Navio navio : colecaoNavio.getNavios()) {
             sb.append("Nome: ").append(navio.getNome()).append("\n");
             sb.append("Velocidade: ").append(navio.getVelocidade()).append(" nós\n");
             sb.append("Autonomia: ").append(navio.getAutonomia()).append(" milhas\n");
             sb.append("Custo por milha: ").append(navio.getCustoPorMilhaBasico()).append("\n");
             sb.append("--------------------\n");
         }
-        if (frota.getNavios().size() ==0){
+        if (colecaoNavio.getNavios().size() ==0){
             sb.append("Nenhum Navio cadastrado.");
         }
         JOptionPane.showMessageDialog(this, sb.toString());
@@ -426,9 +504,12 @@ public class MenuInicial extends JFrame implements ActionListener{
          if(e.getSource() == cadastrarViagem){
             cadastrarViagem();
          }
-         if(e.getSource() == cadastrarTipoCarga){
+         if(e.getSource() == cadastrarTipo){
             cadastrarNovoTipoDeCarga();
-         }
+        }
+         if(e.getSource() == cadastrarCarga){
+            cadastrarCarga();
+        }
     }
     
 }

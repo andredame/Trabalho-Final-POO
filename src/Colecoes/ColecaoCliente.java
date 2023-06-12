@@ -3,10 +3,10 @@ import java.util.ArrayList;
 
 import Objetos.Cliente;
 
-public class Freguesia{
+public class ColecaoCliente{
     private ArrayList <Cliente> clientes;
 
-    public Freguesia() {
+    public ColecaoCliente() {
         clientes = new ArrayList<>();
     }
     public boolean addCliente(Cliente cliente){

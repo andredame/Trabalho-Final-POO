@@ -6,14 +6,14 @@ import java.util.Comparator;
 import Objetos.Navio;
 
 
-public class Frota {
+public class ColecaoNavio {
     private ArrayList<Navio> navios;
 
     public ArrayList<Navio> getNavios() {
         return navios;
     }
 
-    public Frota() {
+    public ColecaoNavio() {
         navios = new ArrayList<>();
     }
 

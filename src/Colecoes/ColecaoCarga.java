@@ -3,10 +3,10 @@ import java.util.ArrayList;
 
 import Objetos.Carga;
 
-public class Container {
+public class ColecaoCarga {
     private ArrayList <Carga> cargas;
 
-    public Container() {
+    public ColecaoCarga() {
         cargas = new ArrayList<>();
     }
     public boolean addCarga(Carga carga){

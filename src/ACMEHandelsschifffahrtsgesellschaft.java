@@ -173,8 +173,8 @@ public class ACMEHandelsschifffahrtsgesellschaft {
             /////////////////////////////////////////////////////
             Distancia distancia = escolheDistancia(origemCarga, destinoCarga);
 
-            Cliente cliente = escolheCliente(codigoClienteCarga);
-            TipoCarga tipoCarga = escolheTipoCarga(tipoCargaCarga);
+           // Cliente cliente = escolheCliente(codigoClienteCarga);
+            //TipoCarga tipoCarga = escolheTipoCarga(tipoCargaCarga);
             // Prioridade prioridade =escolhePrioridade();
             // Situacao situacao=escolheSituacao();
 
@@ -207,13 +207,13 @@ public class ACMEHandelsschifffahrtsgesellschaft {
     // public Navio escolheNavio(){
     //
     // }
-    public Cliente escolheCliente(String codigoClienteCarga) {
+    public Cliente escolheCliente(int codigoClienteCarga) {
         ArrayList<Cliente> c = colecaoClientes.getCliente();
         for (Cliente cliente : c) {
             boolean escolhido = false;
-            String codCliente = cliente.getCod();
+            int codCliente = cliente.getCod();
 
-            if (codCliente.equals(codigoClienteCarga)) {
+            if (codCliente == codigoClienteCarga) {
                 escolhido = true;
             }
             if (escolhido == true) {
@@ -223,13 +223,13 @@ public class ACMEHandelsschifffahrtsgesellschaft {
         return null;
     }
 
-    public TipoCarga escolheTipoCarga(String tipoCargaCarga) {
+    public TipoCarga escolheTipoCarga(int numeroTipoCarga) {
         ArrayList<TipoCarga> t = colecaoTipoCarga.getTipos();
         for (TipoCarga tipoCarga : t) {
             boolean escolhido = false;
-            String numeroTipoCarga = tipoCarga.getNumero();
+            int num = tipoCarga.getNumero();
 
-            if (numeroTipoCarga.equals(tipoCargaCarga)) {
+            if (num == numeroTipoCarga) {
                 escolhido = true;
             }
             if (escolhido == true) {
@@ -310,7 +310,7 @@ public class ACMEHandelsschifffahrtsgesellschaft {
      * Le e cadastra as informações do arquivo especifico para Cliente
      */
     public void leClientes() {
-        String cod;
+        int cod;
         String nome;
         String email;
         String a = leCliente.nextLine();
@@ -318,7 +318,7 @@ public class ACMEHandelsschifffahrtsgesellschaft {
             a = leCliente.nextLine();
             System.out.println(a);
             String linhaDoArquivo[] = a.split(";");
-            cod = linhaDoArquivo[0];
+            cod = Integer.parseInt(linhaDoArquivo[0]);
             nome = linhaDoArquivo[1];
             email = linhaDoArquivo[2];
 
@@ -332,7 +332,7 @@ public class ACMEHandelsschifffahrtsgesellschaft {
      * Le e cadastra as informações do arquivo especifico para o TipoCarga
      */
     public void leTiposCargas() {
-        String numero;
+        int numero;
         String descricao;
 
         String a = leTipoCarga.nextLine();
@@ -340,7 +340,7 @@ public class ACMEHandelsschifffahrtsgesellschaft {
             a = leTipoCarga.nextLine();
             System.out.println(a);
             String linhaDoArquivo[] = a.split(";");
-            numero = linhaDoArquivo[0];
+            numero = Integer.parseInt(linhaDoArquivo[0]);
             descricao = linhaDoArquivo[1];
             if (linhaDoArquivo[2].equals("DURAVEL") || linhaDoArquivo[2].equals("PERECIVEL")) {
                 if (linhaDoArquivo[2].equals("DURAVEL")) {

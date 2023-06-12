@@ -1,7 +1,7 @@
 package Objetos;
 public class Carga {
     private int identificador;
-    private String Cliente;
+    private int Cliente;
     private String origem;
     private String destino;
     private double peso;
@@ -12,7 +12,7 @@ public class Carga {
     private Situacao s;
     
 
-    public Carga(int identificador, String cliente, String origem, String destino, double peso, double valorDeclarado,
+    public Carga(int identificador, int cliente, String origem, String destino, double peso, double valorDeclarado,
             int tempoMaximo, String tipoCarga, Prioridade p, Situacao s) {
         this.identificador = identificador;
         Cliente = cliente;
@@ -52,11 +52,11 @@ public class Carga {
         this.identificador = identificador;
     }
 
-    public String getCliente() {
+    public int getCliente() {
         return Cliente;
     }
 
-    public void setCliente(String cliente) {
+    public void setCliente(int cliente) {
         Cliente = cliente;
     }
 
