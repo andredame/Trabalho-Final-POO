@@ -181,8 +181,8 @@ public class ACMEHandelsschifffahrtsgesellschaft {
             // Navio navio=escolheNavio();//Nós temos que atribui o navio com base na
             // situação e prioridade
             // e depois mudar elas
-            Viagem v = new Viagem(distancia, navio, cliente, tipoCarga, carga, p, s);
-            colecaoViagens.addViagem(v);
+            //Viagem v = new Viagem(distancia, navio, cliente, tipoCarga, carga, p, s);
+            //colecaoViagens.addViagem(v);
 
         }
     }

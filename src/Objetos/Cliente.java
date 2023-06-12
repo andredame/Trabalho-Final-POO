@@ -1,20 +1,20 @@
 package Objetos;
 public class Cliente {
-    private String cod;
+    private int cod;
     private String nome;
     private String email;
 
-    public Cliente(String cod, String nome, String email) {
+    public Cliente(int cod, String nome, String email) {
         this.cod = cod;
         this.nome = nome;
         this.email = email;
     }
    
     
-    public String getCod() {
+    public int getCod() {
         return cod;
     }
-    public void setCod(String cod) {
+    public void setCod(int cod) {
         this.cod = cod;
     }
     public String getNome() {
