@@ -7,7 +7,7 @@ public class Duravel extends TipoCarga{
     private double percentualImposto;
 
 
-    public Duravel(String numero, String descricao, String setor, String materialPrincipal, double percentualImposto) {
+    public Duravel(int numero, String descricao, String setor, String materialPrincipal, double percentualImposto) {
         super(numero, descricao);
         this.setor = setor;
         this.materialPrincipal = materialPrincipal;

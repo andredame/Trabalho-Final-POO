@@ -177,19 +177,23 @@ public class MenuInicial extends JFrame implements ActionListener{
                         String categoria = "";
                         String origem = "";
                         String setor = "";
-                        String tempoMaximo = "";
+                        int tempoMaximo =0 ;
                         String material = "";
-                        String ipi = "";
+                        double ipi = 0;
 
                         if (perecivelRadioButton.isSelected()) {
-                            categoria = "PERECIVEL";
+                            
                             origem = origemTextField.getText();
-                            tempoMaximo = tempoMaximoTextField.getText();
+                            tempoMaximo = Integer.parseInt(tempoMaximoTextField.getText());
+                            Perecivel perecivel = new Perecivel(numero,descricao,origem,tempoMaximo);
+                            colecaoTipoCarga.addTipoCarga(perecivel);
                         } else if (duravelRadioButton.isSelected()) {
                             categoria = "DURAVEL";
                             setor = setorTextField.getText();
                             material = materialTextField.getText();
-                            ipi = ipiTextField.getText();
+                            ipi = Double.parseDouble(ipiTextField.getText());
+                            Duravel duravel = new Duravel(numero, descricao, setor, material, ipi);
+                            colecaoTipoCarga.addTipoCarga(duravel);
                         }
                         
                         String linha = numero + ";" + descricao + ";" + categoria + ";" + origem + ";" + tempoMaximo + ";" + setor + ";" + material + ";" + ipi;
