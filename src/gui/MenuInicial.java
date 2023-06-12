@@ -132,7 +132,7 @@ public class MenuInicial extends JFrame implements ActionListener{
                 if (option == JOptionPane.OK_OPTION) {
                     int id = Integer.parseInt(idTextField.getText());
 
-                    if (colecaoPortos.getPortoPorId(id) != null) {
+                    if (colecaoPortos.getPortoPorId(id) ) {
                         JOptionPane.showMessageDialog(this,
                             "Porto com esse ID já foi cadastrado. Por favor, digite outro ID.");
                     } else {

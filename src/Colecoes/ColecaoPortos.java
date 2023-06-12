@@ -19,12 +19,12 @@ public class ColecaoPortos {
         return new ArrayList<>(portos);
     }
 
-    public Porto getPortoPorId(int id) {
+    public boolean getPortoPorId(int id) {
         for (Porto porto : portos) {
             if (porto.getId() == id) {
-                return porto;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 }
