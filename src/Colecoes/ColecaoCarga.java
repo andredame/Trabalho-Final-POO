@@ -15,5 +15,12 @@ public class ColecaoCarga {
     public ArrayList<Carga> getCargas() {
         return cargas;
     }
-
+    public Carga getCargaCod(int cod){
+        for (Carga c : cargas){
+            if(c.getIdentificador() == cod){
+                return c;
+            }
+        }
+        return null;
+    }
 }

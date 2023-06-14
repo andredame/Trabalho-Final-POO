@@ -31,7 +31,7 @@ public class MenuInicial extends JFrame implements ActionListener{
     private JButton clientesCadastrados;
     private JButton cadastrarViagem;
     private JButton cadastrarTipo;
-
+    private JButton alterarTipoCarga;
 
     public MenuInicial() {
         super("Menu Inicial");
@@ -56,7 +56,10 @@ public class MenuInicial extends JFrame implements ActionListener{
         cadastrarViagem =new JButton("Cadastrar Viagem");
         cadastrarTipo = new JButton("Cadastrar Tipo de Carga");
         cadastrarCarga = new JButton("Cadastrar Carga");
+        alterarTipoCarga = new JButton ("Alterar Situacao Carga");
 
+
+        alterarTipoCarga.addActionListener(this);
         cadastrarCarga.addActionListener(this);
         cadastrarViagem.addActionListener(this);
         cadastrarNavioButton.addActionListener(this);
@@ -67,6 +70,7 @@ public class MenuInicial extends JFrame implements ActionListener{
         clientesCadastrados.addActionListener(this);
         cadastrarTipo.addActionListener(this);
 
+        this.add(alterarTipoCarga);
         this.add(cadastrarCarga);
         this.add(cadastrarViagem);
         this.add(cadastrarTipo);
@@ -123,80 +127,135 @@ public class MenuInicial extends JFrame implements ActionListener{
             }
         }
     }
-    private void cadastrarCarga() {
-    while (true) {
-        try {
-            JTextField codCargaTextField = new JTextField(10);
-            JTextField clienteTextField = new JTextField(10);
-            JTextField origemTextField = new JTextField(10);
-            JTextField destinoTextField = new JTextField(10);
-            JTextField pesoTextField = new JTextField(10);
-            JTextField valorDeclaradoTextField = new JTextField(10);
-            JTextField tempoMaximoDeclaradoTextField = new JTextField(10);
-            JTextField tipoCargaTextField = new JTextField(10);
-            
-            JRadioButton rapidoRadioButton = new JRadioButton("Rápido");
-            JRadioButton baratoRadioButton = new JRadioButton("Barato");
-            ButtonGroup situacaoButtonGroup = new ButtonGroup();
-            situacaoButtonGroup.add(rapidoRadioButton);
-            situacaoButtonGroup.add(baratoRadioButton);
 
-            Object[] message = {
-                "Código da Carga:", codCargaTextField,
-                "Cliente:", clienteTextField,
-                "Origem:", origemTextField,
-                "peso", pesoTextField,
-                "Destino:", destinoTextField,
-                "Valor Declarado:", valorDeclaradoTextField,
-                "Tempo Máximo:", tempoMaximoDeclaradoTextField,
-                "Tipo de Carga:", tipoCargaTextField,
-                "Situação:",
-                rapidoRadioButton,
-                baratoRadioButton,
-                
-                
-            };
-
-            int option = JOptionPane.showOptionDialog(
-                this,
-                message,
-                "Cadastrar Carga",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                null,
-                null
-            );
-
-            if (option == JOptionPane.OK_OPTION) {
-                int codCarga = Integer.parseInt(codCargaTextField.getText());
-                int cliente = Integer.parseInt(clienteTextField.getText());
-                String origem = origemTextField.getText();
-                String destino = destinoTextField.getText();
-                int peso = Integer.parseInt(pesoTextField.getText());
-                double valorDeclarado = Double.parseDouble(valorDeclaradoTextField.getText());
-                int tempoMaximo = Integer.parseInt(tempoMaximoDeclaradoTextField.getText());
-                int tipoCarga = Integer.parseInt(tipoCargaTextField.getText());
-                
-                if (rapidoRadioButton.isSelected()) {
-                    Carga carga = new Carga(tipoCarga, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, destino, Prioridade.RAPIDO, Situacao.PENDENTE);
-                    colecaoCarga.addCarga(carga);
-                } else if (baratoRadioButton.isSelected()) {
-                    Carga carga = new Carga(tipoCarga, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, destino, Prioridade.BARATO, Situacao.PENDENTE);
-                    colecaoCarga.addCarga(carga);
+    private void trocarSituacaoCarga(){
+        while (true) {
+            try{
+                JTextField codCargaTextField = new JTextField(10);
+                Object[] message = {
+                        "Código da Carga:", codCargaTextField,
+                };
+                int option = JOptionPane.showOptionDialog(
+                        this,
+                        message,
+                        "Cadastrar Carga",
+                        JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        null
+                    );
+                if(option == JOptionPane.OK_OPTION){
+                    int codCarga = Integer.parseInt(codCargaTextField.getText());
+                    Carga carga = colecaoCarga.getCargaCod(codCarga);
+                    if(carga != null){
+                        exibirInformacoesCarga(carga);
+                        break;
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Não existe uma Carga com esse código.");
+                        break;
+                    }
                 }
-                
-
-                JOptionPane.showMessageDialog(this, "Carga cadastrada com sucesso!");
-                break;
-            } else {
-                break;
+            }catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Entrada inválida. Por favor, insira um valor numérico válido para o código da carga.");
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Entrada inválida. Por favor, insira um valor numérico válido para os campos necessários.");
+            
+        }
+
+    }
+
+    private void exibirInformacoesCarga(Carga carga) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Código: ").append(carga.getIdentificador()).append("\n");
+        sb.append("Cliente: ").append(carga.getCliente()).append("\n");
+        sb.append("Origem: ").append(carga.getOrigem()).append("\n");
+        sb.append("Destino: ").append(carga.getDestino()).append("\n");
+        sb.append("Peso: ").append(carga.getPeso()).append("\n");
+        sb.append("Valor Declarado: ").append(carga.getValorDeclarado()).append("\n");
+        sb.append("Tempo Máximo: ").append(carga.getTempoMaximo()).append("\n");
+        sb.append("Tipo de Carga: ").append(carga.getTipoCarga()).append("\n");
+        //sb.append("Prioridade: ").append(carga.getPrioridade()).append("\n");
+        //sb.append("Situação: ").append(carga.getSituacao()).append("\n");
+
+        JOptionPane.showMessageDialog(this, sb.toString());
+    }
+
+    
+    private void cadastrarCarga() {
+        while (true) {
+            try {
+
+                JTextField codCargaTextField = new JTextField(10);
+                JTextField clienteTextField = new JTextField(10);
+                JTextField origemTextField = new JTextField(10);
+                JTextField destinoTextField = new JTextField(10);
+                JTextField pesoTextField = new JTextField(10);
+                JTextField valorDeclaradoTextField = new JTextField(10);
+                JTextField tempoMaximoDeclaradoTextField = new JTextField(10);
+                JTextField tipoCargaTextField = new JTextField(10);
+                JRadioButton rapidoRadioButton = new JRadioButton("Rápido");
+                JRadioButton baratoRadioButton = new JRadioButton("Barato");
+                ButtonGroup situacaoButtonGroup = new ButtonGroup();
+                situacaoButtonGroup.add(rapidoRadioButton);
+                situacaoButtonGroup.add(baratoRadioButton);
+
+                Object[] message = {
+                    "Código da Carga:", codCargaTextField,
+                    "Cliente:", clienteTextField,
+                    "Origem:", origemTextField,
+                    "Peso:", pesoTextField,
+                    "Destino:", destinoTextField,
+                    "Valor Declarado:", valorDeclaradoTextField,
+                    "Tempo Máximo:", tempoMaximoDeclaradoTextField,
+                    "Tipo de Carga:", tipoCargaTextField,
+                    "Situação:",
+                    rapidoRadioButton,
+                    baratoRadioButton,
+                    
+                    
+                };
+
+                int option = JOptionPane.showOptionDialog(
+                    this,
+                    message,
+                    "Cadastrar Carga",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    null
+                );
+
+                if (option == JOptionPane.OK_OPTION) {
+                    int codCarga = Integer.parseInt(codCargaTextField.getText());
+                    int cliente = Integer.parseInt(clienteTextField.getText());
+                    String origem = origemTextField.getText();
+                    String destino = destinoTextField.getText();
+                    int peso = Integer.parseInt(pesoTextField.getText());
+                    double valorDeclarado = Double.parseDouble(valorDeclaradoTextField.getText());
+                    int tempoMaximo = Integer.parseInt(tempoMaximoDeclaradoTextField.getText());
+                    int tipoCarga = Integer.parseInt(tipoCargaTextField.getText());
+                    
+                    if (rapidoRadioButton.isSelected()) {
+                        Carga carga = new Carga(tipoCarga, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, destino, Prioridade.RAPIDO, Situacao.PENDENTE);
+                        colecaoCarga.addCarga(carga);
+                    } else if (baratoRadioButton.isSelected()) {
+                        Carga carga = new Carga(tipoCarga, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, destino, Prioridade.BARATO, Situacao.PENDENTE);
+                        colecaoCarga.addCarga(carga);
+                    }
+                    
+
+                    JOptionPane.showMessageDialog(this, "Carga cadastrada com sucesso!");
+                    break;
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Entrada inválida. Por favor, insira um valor numérico válido para os campos necessários.");
+            }
         }
     }
-}
 
     
     private void cadastrarNovoTipoDeCarga() {
@@ -509,6 +568,9 @@ public class MenuInicial extends JFrame implements ActionListener{
         }
          if(e.getSource() == cadastrarCarga){
             cadastrarCarga();
+        }
+        if(e.getSource() == alterarTipoCarga){
+            trocarSituacaoCarga();
         }
     }
     
