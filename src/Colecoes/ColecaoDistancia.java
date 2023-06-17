@@ -2,10 +2,10 @@ package Colecoes;
 import java.util.ArrayList;
 
 import Objetos.Distancia;
-public class Mapa {
+public class ColecaoDistancia {
     private ArrayList <Distancia> mapa;
 
-    public Mapa() {
+    public ColecaoDistancia() {
         mapa =  new ArrayList<>();
     }
     public boolean addNoMapa(Distancia percurso){

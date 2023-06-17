@@ -1,18 +1,18 @@
 package Objetos;
 public class  TipoCarga {
-    private String numero;
+    private int numero;
     private String descricao;
 
     
-    public TipoCarga(String numero, String descricao) {
+    public TipoCarga(int numero, String descricao) {
         this.numero = numero;
         this.descricao = descricao;
     }
     
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
     public String getDescricao() {

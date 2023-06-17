@@ -3,10 +3,10 @@ import java.util.ArrayList;
 
 import Objetos.Carga;
 
-public class Container {
+public class ColecaoCarga {
     private ArrayList <Carga> cargas;
 
-    public Container() {
+    public ColecaoCarga() {
         cargas = new ArrayList<>();
     }
     public boolean addCarga(Carga carga){
@@ -15,5 +15,12 @@ public class Container {
     public ArrayList<Carga> getCargas() {
         return cargas;
     }
-
+    public Carga getCargaCod(int cod){
+        for (Carga c : cargas){
+            if(c.getIdentificador() == cod){
+                return c;
+            }
+        }
+        return null;
+    }
 }

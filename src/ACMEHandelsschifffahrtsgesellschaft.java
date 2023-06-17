@@ -14,10 +14,10 @@ public class ACMEHandelsschifffahrtsgesellschaft {
 
     private ColecaoPortos colecaoPortos = new ColecaoPortos();
     private ColecaoTipoCarga colecaoTipoCarga = new ColecaoTipoCarga();
-    private Container colecaoCarga = new Container();
-    private Freguesia colecaoClientes = new Freguesia();
-    private Frota colecaoNavios = new Frota();
-    private Mapa colecaoDistancias = new Mapa();
+    private ColecaoCarga colecaoCarga = new ColecaoCarga();
+    private ColecaoCliente colecaoClientes = new ColecaoCliente();
+    private ColecaoNavio colecaoNavios = new ColecaoNavio();
+    private ColecaoDistancia colecaoDistancias = new ColecaoDistancia();
     private ColecaoViagens colecaoViagens = new ColecaoViagens();
 
     private Scanner memoryCard = null;
@@ -134,7 +134,7 @@ public class ACMEHandelsschifffahrtsgesellschaft {
 
     public void executa() {
         leArquivos();
-
+        
     }
 
     public void leArquivos() {
@@ -161,28 +161,28 @@ public class ACMEHandelsschifffahrtsgesellschaft {
         ArrayList<Carga> cargas = colecaoCarga.getCargas();
         for (Carga carga : cargas) {
             int codigo = carga.getIdentificador(); // Identificador da carga
-            String codigoClienteCarga = carga.getCliente(); // Pega o identificador do cliente na carga
+            int codigoClienteCarga = carga.getCliente(); // Pega o identificador do cliente na carga
             String origemCarga = carga.getOrigem();// Pega a origem da carga
             String destinoCarga = carga.getDestino();// Pega o detino da carga
             double pesoCarga = carga.getPeso();// Pega o peso da carga
             double valorDeclaradoCarga = carga.getValorDeclarado();// Pega o valor declarado da carga
             int tempoMaximoCarga = carga.getTempoMaximo(); // Pega o tempoMax dacarga
             String tipoCargaCarga = carga.getTipoCarga(); // Pega o tipo de carga
-            Prioridade p = carga.getP();
-            Situacao s = carga.getS();
+            Prioridade p = carga.getPrioridade();
+            Situacao s = carga.getSituacao();
             /////////////////////////////////////////////////////
             Distancia distancia = escolheDistancia(origemCarga, destinoCarga);
 
-            Cliente cliente = escolheCliente(codigoClienteCarga);
-            TipoCarga tipoCarga = escolheTipoCarga(tipoCargaCarga);
+           // Cliente cliente = escolheCliente(codigoClienteCarga);
+            //TipoCarga tipoCarga = escolheTipoCarga(tipoCargaCarga);
             // Prioridade prioridade =escolhePrioridade();
             // Situacao situacao=escolheSituacao();
 
             // Navio navio=escolheNavio();//Nós temos que atribui o navio com base na
             // situação e prioridade
             // e depois mudar elas
-            Viagem v = new Viagem(distancia, navio, cliente, tipoCarga, carga, p, s);
-            colecaoViagens.addViagem(v);
+            //Viagem v = new Viagem(distancia, navio, cliente, tipoCarga, carga, p, s);
+            //colecaoViagens.addViagem(v);
 
         }
     }
@@ -207,13 +207,13 @@ public class ACMEHandelsschifffahrtsgesellschaft {
     // public Navio escolheNavio(){
     //
     // }
-    public Cliente escolheCliente(String codigoClienteCarga) {
+    public Cliente escolheCliente(int codigoClienteCarga) {
         ArrayList<Cliente> c = colecaoClientes.getCliente();
         for (Cliente cliente : c) {
             boolean escolhido = false;
-            String codCliente = cliente.getCod();
+            int codCliente = cliente.getCod();
 
-            if (codCliente.equals(codigoClienteCarga)) {
+            if (codCliente == codigoClienteCarga) {
                 escolhido = true;
             }
             if (escolhido == true) {
@@ -223,13 +223,13 @@ public class ACMEHandelsschifffahrtsgesellschaft {
         return null;
     }
 
-    public TipoCarga escolheTipoCarga(String tipoCargaCarga) {
+    public TipoCarga escolheTipoCarga(int numeroTipoCarga) {
         ArrayList<TipoCarga> t = colecaoTipoCarga.getTipos();
         for (TipoCarga tipoCarga : t) {
             boolean escolhido = false;
-            String numeroTipoCarga = tipoCarga.getNumero();
+            int num = tipoCarga.getNumero();
 
-            if (numeroTipoCarga.equals(tipoCargaCarga)) {
+            if (num == numeroTipoCarga) {
                 escolhido = true;
             }
             if (escolhido == true) {
@@ -310,7 +310,7 @@ public class ACMEHandelsschifffahrtsgesellschaft {
      * Le e cadastra as informações do arquivo especifico para Cliente
      */
     public void leClientes() {
-        String cod;
+        int cod;
         String nome;
         String email;
         String a = leCliente.nextLine();
@@ -318,7 +318,7 @@ public class ACMEHandelsschifffahrtsgesellschaft {
             a = leCliente.nextLine();
             System.out.println(a);
             String linhaDoArquivo[] = a.split(";");
-            cod = linhaDoArquivo[0];
+            cod = Integer.parseInt(linhaDoArquivo[0]);
             nome = linhaDoArquivo[1];
             email = linhaDoArquivo[2];
 
@@ -332,7 +332,7 @@ public class ACMEHandelsschifffahrtsgesellschaft {
      * Le e cadastra as informações do arquivo especifico para o TipoCarga
      */
     public void leTiposCargas() {
-        String numero;
+        int numero;
         String descricao;
 
         String a = leTipoCarga.nextLine();
@@ -340,7 +340,7 @@ public class ACMEHandelsschifffahrtsgesellschaft {
             a = leTipoCarga.nextLine();
             System.out.println(a);
             String linhaDoArquivo[] = a.split(";");
-            numero = linhaDoArquivo[0];
+            numero = Integer.parseInt(linhaDoArquivo[0]);
             descricao = linhaDoArquivo[1];
             if (linhaDoArquivo[2].equals("DURAVEL") || linhaDoArquivo[2].equals("PERECIVEL")) {
                 if (linhaDoArquivo[2].equals("DURAVEL")) {
@@ -415,8 +415,9 @@ public class ACMEHandelsschifffahrtsgesellschaft {
                     System.out.println("ERRO SITUACAO");
                     break;
             }
-            Carga c = new Carga(codigo, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, tipoCarga, p, s);
-            colecaoCarga.addCarga(c);
+            //Ta dando algum erro
+            //Carga c = new Carga(codigo, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, tipoCarga, p, s);
+            //colecaoCarga.addCarga(c);
         }
     }
 }

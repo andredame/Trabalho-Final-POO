@@ -3,7 +3,7 @@ public class Perecivel extends TipoCarga {
     private String origem;
     private int validade;
 
-    public Perecivel(String numero, String descricao, String origem, int validade) {
+    public Perecivel(int numero, String descricao, String origem, int validade) {
         super(numero, descricao);
         this.origem = origem;
         this.validade = validade;
