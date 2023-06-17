@@ -36,8 +36,8 @@ public class MenuInicial extends JFrame implements ActionListener{
 
     public MenuInicial() {
         super("Menu Inicial");
-        setLayout(new FlowLayout());
-        setSize(700, 400);
+        setLayout(null);
+        this.setSize(700, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         
@@ -59,6 +59,24 @@ public class MenuInicial extends JFrame implements ActionListener{
         cadastrarCarga = new JButton("Cadastrar Carga");
         alterarTipoCarga = new JButton ("Alterar Situacao Carga");
         cargasCadastradas = new JButton("Cargas Cadastradas");
+        int x = 10;
+        int y = 10;
+        int width=180;
+        int height=30;
+
+        cadastrarCarga.setBounds(x , y, width, height);
+        cargasCadastradas.setBounds(x, y+40, width, height);
+        alterarTipoCarga.setBounds(x , y+80, width, height);
+        cadastrarViagem.setBounds(x, y +120, width, height);
+        cadastrarTipo.setBounds(x, y +160 , width, height);
+
+        cadastrarCliente.setBounds(x+210, y, width, height);
+        clientesCadastrados.setBounds(x+210, y+40, width, height);
+        cadastrarNavioButton.setBounds(x+210, y+80, width, height);
+        naviosCadastradosButton.setBounds(x+210, y+120, width, height);
+        cadastrarPortoButton.setBounds(x+210, y+160, width, height);
+       portosCadastradosButton.setBounds(x+210, y+200, width, height);;
+        
 
 
 
