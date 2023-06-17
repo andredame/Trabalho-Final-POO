@@ -32,6 +32,7 @@ public class MenuInicial extends JFrame implements ActionListener{
     private JButton cadastrarViagem;
     private JButton cadastrarTipo;
     private JButton alterarTipoCarga;
+    private JButton cargasCadastradas;
 
     public MenuInicial() {
         super("Menu Inicial");
@@ -57,8 +58,11 @@ public class MenuInicial extends JFrame implements ActionListener{
         cadastrarTipo = new JButton("Cadastrar Tipo de Carga");
         cadastrarCarga = new JButton("Cadastrar Carga");
         alterarTipoCarga = new JButton ("Alterar Situacao Carga");
+        cargasCadastradas = new JButton("Cargas Cadastradas");
 
 
+
+        cargasCadastradas.addActionListener(this);
         alterarTipoCarga.addActionListener(this);
         cadastrarCarga.addActionListener(this);
         cadastrarViagem.addActionListener(this);
@@ -70,6 +74,7 @@ public class MenuInicial extends JFrame implements ActionListener{
         clientesCadastrados.addActionListener(this);
         cadastrarTipo.addActionListener(this);
 
+        this.add(cargasCadastradas);
         this.add(alterarTipoCarga);
         this.add(cadastrarCarga);
         this.add(cadastrarViagem);
@@ -128,7 +133,7 @@ public class MenuInicial extends JFrame implements ActionListener{
         }
     }
 
-    private void trocarSituacaoCarga(){
+    private void CodCarga(){
         while (true) {
             try{
                 JTextField codCargaTextField = new JTextField(10);
@@ -149,10 +154,13 @@ public class MenuInicial extends JFrame implements ActionListener{
                     int codCarga = Integer.parseInt(codCargaTextField.getText());
                     Carga carga = colecaoCarga.getCargaCod(codCarga);
                     if(carga != null){
-                        //if (carga.getSituacao() == Situacao.FINALIZADO){
-                            exibirInformacoesCarga(carga);
-                        break;
-                        //}
+                        if (carga.getSituacao() != Situacao.FINALIZADO){
+                            trocarSituacaoCarga(carga);
+                            break;
+                        }else{
+                            JOptionPane.showMessageDialog(this, "Não pode ser alterada, Carga já finalizada");
+                            break;
+                        }
                         
                     }else{
                         JOptionPane.showMessageDialog(this, "Não existe uma Carga com esse código.");
@@ -169,10 +177,10 @@ public class MenuInicial extends JFrame implements ActionListener{
 
     }
 
-    private void exibirInformacoesCarga(Carga carga) {
+    private void trocarSituacaoCarga(Carga carga) {
         
         JRadioButton locadoRadioButton = new JRadioButton("Locado");
-        JRadioButton pendenteRadioButton = new JRadioButton("pendente");
+        JRadioButton pendenteRadioButton = new JRadioButton("Pendente");
         JRadioButton canceladoRadioButton = new JRadioButton("Cancelado");
         JRadioButton finalizadoRadioButton = new JRadioButton("Finalizado");
         ButtonGroup situacaoButtonGroup = new ButtonGroup();
@@ -195,8 +203,8 @@ public class MenuInicial extends JFrame implements ActionListener{
                     "Tipo de Carga:", carga.getTipoCarga(),
                     "Situação:",carga.getSituacao(),
                    "Alterar Situacao da Carga",
-                   locadoRadioButton,
                    pendenteRadioButton,
+                   locadoRadioButton,
                    finalizadoRadioButton,
                    canceladoRadioButton
                 };
@@ -222,6 +230,27 @@ public class MenuInicial extends JFrame implements ActionListener{
                     }
                 }
     }
+    private void exibirCargasCadastradas() {
+        StringBuilder sb = new StringBuilder();
+        for (Carga carga : colecaoCarga.getCargas()) {
+            sb.append("Identificador: ").append(carga.getIdentificador()).append("\n");
+            sb.append("Cliente: ").append(carga.getCliente()).append("\n");
+            sb.append("Origem: ").append(carga.getOrigem()).append("\n");
+            sb.append("Destino: ").append(carga.getDestino()).append("\n");
+            sb.append("Peso: ").append(carga.getPeso()).append("\n");
+            sb.append("Valor Declarado: ").append(carga.getValorDeclarado()).append("\n");
+            sb.append("Tempo Máximo: ").append(carga.getTempoMaximo()).append("\n");
+            sb.append("Tipo de Carga: ").append(carga.getTipoCarga()).append("\n");
+            sb.append("Prioridade: ").append(carga.getPrioridade()).append("\n");
+            sb.append("Situação: ").append(carga.getSituacao()).append("\n");
+            sb.append("--------------------\n");
+        }
+        if (colecaoCarga.getCargas().size() == 0) {
+            sb.append("Nenhuma carga cadastrada.");
+        }
+        JOptionPane.showMessageDialog(this, sb.toString());
+}
+
 
     
     private void cadastrarCarga() {
@@ -280,10 +309,10 @@ public class MenuInicial extends JFrame implements ActionListener{
                     int tipoCarga = Integer.parseInt(tipoCargaTextField.getText());
                     
                     if (rapidoRadioButton.isSelected()) {
-                        Carga carga = new Carga(tipoCarga, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, destino, Prioridade.RAPIDO, Situacao.PENDENTE);
+                        Carga carga = new Carga (codCarga, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, tipoCarga, Prioridade.RAPIDO, Situacao.PENDENTE);
                         colecaoCarga.addCarga(carga);
                     } else if (baratoRadioButton.isSelected()) {
-                        Carga carga = new Carga(tipoCarga, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, destino, Prioridade.BARATO, Situacao.PENDENTE);
+                        Carga carga = new Carga (codCarga, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, tipoCarga, Prioridade.BARATO, Situacao.PENDENTE);
                         colecaoCarga.addCarga(carga);
                     }
                     
@@ -612,7 +641,10 @@ public class MenuInicial extends JFrame implements ActionListener{
             cadastrarCarga();
         }
         if(e.getSource() == alterarTipoCarga){
-            trocarSituacaoCarga();
+            CodCarga();
+        }
+        if (e.getSource() == cargasCadastradas){
+            exibirCargasCadastradas();
         }
     }
     

@@ -7,7 +7,7 @@ public class Carga {
     private double peso;
     private double valorDeclarado;
     private int tempoMaximo;
-    private String tipoCarga;
+    private int tipoCarga;
     private Prioridade prioridade;
     private Situacao situacao;
     
@@ -15,7 +15,7 @@ public class Carga {
     
 
     public Carga(int identificador, int cliente, String origem, String destino, double peso, double valorDeclarado,
-            int tempoMaximo, String tipoCarga, Prioridade prioridade, Situacao situacao) {
+            int tempoMaximo, int tipoCarga, Prioridade prioridade, Situacao situacao) {
         this.identificador = identificador;
         Cliente = cliente;
         this.origem = origem;
@@ -102,11 +102,11 @@ public class Carga {
         this.tempoMaximo = tempoMaximo;
     }
 
-    public String getTipoCarga() {
+    public int getTipoCarga() {
         return tipoCarga;
     }
 
-    public void setTipoCarga(String tipoCarga) {
+    public void setTipoCarga(int tipoCarga) {
         this.tipoCarga = tipoCarga;
     }
     
