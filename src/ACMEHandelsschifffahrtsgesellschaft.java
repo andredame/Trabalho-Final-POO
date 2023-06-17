@@ -14,10 +14,10 @@ public class ACMEHandelsschifffahrtsgesellschaft {
 
     private ColecaoPortos colecaoPortos = new ColecaoPortos();
     private ColecaoTipoCarga colecaoTipoCarga = new ColecaoTipoCarga();
-    private Container colecaoCarga = new Container();
-    private Freguesia colecaoClientes = new Freguesia();
-    private Frota colecaoNavios = new Frota();
-    private Mapa colecaoDistancias = new Mapa();
+    private ColecaoCarga colecaoCarga = new ColecaoCarga();
+    private ColecaoCliente colecaoClientes = new ColecaoCliente();
+    private ColecaoNavio colecaoNavios = new ColecaoNavio();
+    private ColecaoDistancia colecaoDistancias = new ColecaoDistancia();
     private ColecaoViagens colecaoViagens = new ColecaoViagens();
 
     private Scanner memoryCard = null;
@@ -161,15 +161,15 @@ public class ACMEHandelsschifffahrtsgesellschaft {
         ArrayList<Carga> cargas = colecaoCarga.getCargas();
         for (Carga carga : cargas) {
             int codigo = carga.getIdentificador(); // Identificador da carga
-            String codigoClienteCarga = carga.getCliente(); // Pega o identificador do cliente na carga
+            int codigoClienteCarga = carga.getCliente(); // Pega o identificador do cliente na carga
             String origemCarga = carga.getOrigem();// Pega a origem da carga
             String destinoCarga = carga.getDestino();// Pega o detino da carga
             double pesoCarga = carga.getPeso();// Pega o peso da carga
             double valorDeclaradoCarga = carga.getValorDeclarado();// Pega o valor declarado da carga
             int tempoMaximoCarga = carga.getTempoMaximo(); // Pega o tempoMax dacarga
             String tipoCargaCarga = carga.getTipoCarga(); // Pega o tipo de carga
-            Prioridade p = carga.getP();
-            Situacao s = carga.getS();
+            Prioridade p = carga.getPrioridade();
+            Situacao s = carga.getSituacao();
             /////////////////////////////////////////////////////
             Distancia distancia = escolheDistancia(origemCarga, destinoCarga);
 
@@ -415,8 +415,9 @@ public class ACMEHandelsschifffahrtsgesellschaft {
                     System.out.println("ERRO SITUACAO");
                     break;
             }
-            Carga c = new Carga(codigo, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, tipoCarga, p, s);
-            colecaoCarga.addCarga(c);
+            //Ta dando algum erro
+            //Carga c = new Carga(codigo, cliente, origem, destino, peso, valorDeclarado, tempoMaximo, tipoCarga, p, s);
+            //colecaoCarga.addCarga(c);
         }
     }
 }

@@ -8,12 +8,14 @@ public class Carga {
     private double valorDeclarado;
     private int tempoMaximo;
     private String tipoCarga;
-    private Prioridade p;
-    private Situacao s;
+    private Prioridade prioridade;
+    private Situacao situacao;
+    
+
     
 
     public Carga(int identificador, int cliente, String origem, String destino, double peso, double valorDeclarado,
-            int tempoMaximo, String tipoCarga, Prioridade p, Situacao s) {
+            int tempoMaximo, String tipoCarga, Prioridade prioridade, Situacao situacao) {
         this.identificador = identificador;
         Cliente = cliente;
         this.origem = origem;
@@ -22,8 +24,8 @@ public class Carga {
         this.valorDeclarado = valorDeclarado;
         this.tempoMaximo = tempoMaximo;
         this.tipoCarga = tipoCarga;
-        this.p = p;
-        this.s = s;
+        this.prioridade = prioridade;
+        this.situacao = situacao;
     }
 
     public double calculaPrecoFrete() {
@@ -107,20 +109,22 @@ public class Carga {
     public void setTipoCarga(String tipoCarga) {
         this.tipoCarga = tipoCarga;
     }
-
-    public Prioridade getP() {
-        return p;
+    
+    public Prioridade getPrioridade() {
+        return prioridade;
     }
 
-    public void setP(Prioridade p) {
-        this.p = p;
+    public void setPrioridade(Prioridade prioridade) {
+        this.prioridade = prioridade;
     }
 
-    public Situacao getS() {
-        return s;
+    public Situacao getSituacao() {
+        return situacao;
     }
 
-    public void setS(Situacao s) {
-        this.s = s;
+    public void setSituacao(Situacao situacao) {
+        this.situacao = situacao;
     }
+
+
 }

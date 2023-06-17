@@ -138,7 +138,7 @@ public class MenuInicial extends JFrame implements ActionListener{
                 int option = JOptionPane.showOptionDialog(
                         this,
                         message,
-                        "Cadastrar Carga",
+                        "Trocar situacao Carga",
                         JOptionPane.OK_CANCEL_OPTION,
                         JOptionPane.PLAIN_MESSAGE,
                         null,
@@ -149,12 +149,17 @@ public class MenuInicial extends JFrame implements ActionListener{
                     int codCarga = Integer.parseInt(codCargaTextField.getText());
                     Carga carga = colecaoCarga.getCargaCod(codCarga);
                     if(carga != null){
-                        exibirInformacoesCarga(carga);
+                        //if (carga.getSituacao() == Situacao.FINALIZADO){
+                            exibirInformacoesCarga(carga);
                         break;
+                        //}
+                        
                     }else{
                         JOptionPane.showMessageDialog(this, "Não existe uma Carga com esse código.");
                         break;
                     }
+                }else{
+                    break;
                 }
             }catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Entrada inválida. Por favor, insira um valor numérico válido para o código da carga.");
@@ -165,20 +170,57 @@ public class MenuInicial extends JFrame implements ActionListener{
     }
 
     private void exibirInformacoesCarga(Carga carga) {
-        StringBuilder sb = new StringBuilder();
+        
+        JRadioButton locadoRadioButton = new JRadioButton("Locado");
+        JRadioButton pendenteRadioButton = new JRadioButton("pendente");
+        JRadioButton canceladoRadioButton = new JRadioButton("Cancelado");
+        JRadioButton finalizadoRadioButton = new JRadioButton("Finalizado");
+        ButtonGroup situacaoButtonGroup = new ButtonGroup();
+        situacaoButtonGroup.add(locadoRadioButton);
+        situacaoButtonGroup.add(pendenteRadioButton);
+        situacaoButtonGroup.add(canceladoRadioButton);
+        situacaoButtonGroup.add(finalizadoRadioButton);
 
-        sb.append("Código: ").append(carga.getIdentificador()).append("\n");
-        sb.append("Cliente: ").append(carga.getCliente()).append("\n");
-        sb.append("Origem: ").append(carga.getOrigem()).append("\n");
-        sb.append("Destino: ").append(carga.getDestino()).append("\n");
-        sb.append("Peso: ").append(carga.getPeso()).append("\n");
-        sb.append("Valor Declarado: ").append(carga.getValorDeclarado()).append("\n");
-        sb.append("Tempo Máximo: ").append(carga.getTempoMaximo()).append("\n");
-        sb.append("Tipo de Carga: ").append(carga.getTipoCarga()).append("\n");
-        //sb.append("Prioridade: ").append(carga.getPrioridade()).append("\n");
-        //sb.append("Situação: ").append(carga.getSituacao()).append("\n");
-
-        JOptionPane.showMessageDialog(this, sb.toString());
+        
+    
+        Object[] message = {
+            
+                    "Código da Carga:", carga.getIdentificador(),
+                    "Codigo Cliente:",carga.getCliente(),
+                    "Origem:", carga.getOrigem(),
+                    "Peso:", carga.getPeso(),
+                    "Destino:", carga.getDestino(),
+                    "Valor Declarado:", carga.getValorDeclarado(),
+                    "Tempo Máximo:", carga.getTempoMaximo(),
+                    "Tipo de Carga:", carga.getTipoCarga(),
+                    "Situação:",carga.getSituacao(),
+                   "Alterar Situacao da Carga",
+                   locadoRadioButton,
+                   pendenteRadioButton,
+                   finalizadoRadioButton,
+                   canceladoRadioButton
+                };
+                int option = JOptionPane.showOptionDialog(
+                    this,
+                    message,
+                    "Cadastrar Carga",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    null
+                );
+                if (option == JOptionPane.OK_OPTION) {
+                    if(locadoRadioButton.isSelected()){
+                        carga.setSituacao(Situacao.LOCADO);
+                    }else if(pendenteRadioButton.isSelected()){
+                        carga.setSituacao(Situacao.PENDENTE);
+                    }else if(finalizadoRadioButton.isSelected()){
+                        carga.setSituacao(Situacao.FINALIZADO);
+                    }else if(canceladoRadioButton.isSelected()){
+                        carga.setSituacao(Situacao.CANCELADO);
+                    }
+                }
     }
 
     
@@ -202,7 +244,7 @@ public class MenuInicial extends JFrame implements ActionListener{
 
                 Object[] message = {
                     "Código da Carga:", codCargaTextField,
-                    "Cliente:", clienteTextField,
+                    "Codigo Cliente:", clienteTextField,
                     "Origem:", origemTextField,
                     "Peso:", pesoTextField,
                     "Destino:", destinoTextField,
@@ -252,7 +294,7 @@ public class MenuInicial extends JFrame implements ActionListener{
                     break;
                 }
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Entrada inválida. Por favor, insira um valor numérico válido para os campos necessários.");
+                JOptionPane.showMessageDialog(this, "Entrada inválida. Por favor, insira um valor numérico válido para os campos necessários."+ e.getMessage());
             }
         }
     }
