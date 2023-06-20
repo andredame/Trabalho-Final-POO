@@ -218,6 +218,7 @@ public class MenuInicial extends JFrame implements ActionListener {
                 this.colecaoNavio = json.getColecaoNavio();
                 this.colecaoTipoCarga = json.getColecaoTipoCarga();
                 this.colecaoPortos = json.getColecaoPorto();
+                JOptionPane.showMessageDialog(this, "Dados carregados com sucesso");
             } else {
                 JOptionPane.showMessageDialog(this, "Dados NÃO carregados, tente novamente ");
             }
