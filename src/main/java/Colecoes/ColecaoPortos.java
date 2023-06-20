@@ -1,18 +1,24 @@
 package Colecoes;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.TreeSet;
 
 import Objetos.Porto;
+
 public class ColecaoPortos {
-    private TreeSet<Porto> portos;
+    private ArrayList<Porto> portos;
 
     public ColecaoPortos() {
-        portos = new TreeSet<>(Comparator.comparingInt(Porto::getId));
+        portos = new ArrayList<>();
     }
 
     public boolean addPorto(Porto porto) {
-        return portos.add(porto);
+        boolean adicionado = portos.add(porto);
+        if (adicionado) {
+            Collections.sort(portos, Comparator.comparingInt(Porto::getId));
+        }
+        return adicionado;
     }
 
     public ArrayList<Porto> getPortos() {

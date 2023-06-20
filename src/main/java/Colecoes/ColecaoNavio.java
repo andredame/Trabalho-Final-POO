@@ -18,21 +18,16 @@ public class ColecaoNavio {
     }
 
     public boolean addNavio(Navio navio) {
-        boolean result = navios.add(navio);
-        ordenarNaviosPorNome();
-        return result;
+    boolean adicionado = navios.add(navio);
+    if (adicionado) {
+        Collections.sort(navios, Comparator.comparing(Navio::getNome));
     }
+    return adicionado;
+}
 
     public Navio getNavio(int i){
         return navios.get(i);
     }
 
-    private void ordenarNaviosPorNome() {
-        Collections.sort(navios, new Comparator<Navio>() {
-            @Override
-            public int compare(Navio navio1, Navio navio2) {
-                return navio1.getNome().compareToIgnoreCase(navio2.getNome());
-            }
-        });
-    }
+    
 }

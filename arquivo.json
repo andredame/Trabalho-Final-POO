@@ -1,0 +1,102 @@
+{
+  "colecaoCarga": {
+    "cargas": [
+      {
+        "identificador": 111,
+        "cliente": 1111,
+        "origem": 11,
+        "destino": 22,
+        "peso": 60000,
+        "valorDeclarado": 102000.0,
+        "tempoMaximo": 3,
+        "tipoCarga": 11111,
+        "prioridade": "BARATO",
+        "situacao": "PENDENTE"
+      },
+      {
+        "identificador": 222,
+        "cliente": 2222,
+        "origem": 22,
+        "destino": 33,
+        "peso": 30000,
+        "valorDeclarado": 100000.0,
+        "tempoMaximo": 10,
+        "tipoCarga": 22222,
+        "prioridade": "RAPIDO",
+        "situacao": "PENDENTE"
+      }
+    ]
+  },
+  "colecaoPorto": {
+    "portos": [
+      {
+        "id": 11,
+        "nome": "Rio Grande",
+        "pais": "Brasil"
+      },
+      {
+        "id": 22,
+        "nome": "Santos",
+        "pais": "Brasil"
+      },
+      {
+        "id": 33,
+        "nome": "Lisboa",
+        "pais": "Portugal"
+      }
+    ]
+  },
+  "colecaoNavio": {
+    "navios": [
+      {
+        "nome": "Aquaman",
+        "velocidade": 20.0,
+        "autonomia": 6500.0,
+        "custoPorMilhaBasico": 25.0
+      },
+      {
+        "nome": "Netuno",
+        "velocidade": 40.0,
+        "autonomia": 5500.0,
+        "custoPorMilhaBasico": 50.0
+      },
+      {
+        "nome": "Poseidon",
+        "velocidade": 10.0,
+        "autonomia": 10000.0,
+        "custoPorMilhaBasico": 10.0
+      }
+    ]
+  },
+  "colecaoTipoCarga": {
+    "tipos": [
+      {
+        "origem": "Animal",
+        "validade": 30,
+        "numero": 11111,
+        "descricao": "Carne suina"
+      },
+      {
+        "setor": "Borracharia",
+        "materialPrincipal": "Borracha",
+        "percentualImposto": 15.0,
+        "numero": 22222,
+        "descricao": "Pneus de automovel"
+      }
+    ]
+  },
+  "colecaoCliente": {
+    "clientes": [
+      {
+        "cod": 1111,
+        "nome": "Maria da Silva",
+        "email": "maria@email.com"
+      },
+      {
+        "cod": 2222,
+        "nome": "Tires Inc.",
+        "email": "pedro@mail.com.br"
+      }
+    ]
+  }
+}

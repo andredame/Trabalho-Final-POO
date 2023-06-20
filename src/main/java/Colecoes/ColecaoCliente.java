@@ -1,5 +1,7 @@
 package Colecoes;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import Objetos.Cliente;
 
@@ -9,8 +11,12 @@ public class ColecaoCliente{
     public ColecaoCliente() {
         clientes = new ArrayList<>();
     }
-    public boolean addCliente(Cliente cliente){
-        return clientes.add(cliente);
+    public boolean addCliente(Cliente cliente) {
+        boolean adicionado = clientes.add(cliente);
+        if (adicionado) {
+            Collections.sort(clientes, Comparator.comparingInt(Cliente::getCod));
+        }
+        return adicionado;
     }
     public ArrayList<Cliente> getCliente() {
         return clientes;

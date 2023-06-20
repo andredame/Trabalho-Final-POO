@@ -1,5 +1,7 @@
 package Colecoes;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import Objetos.TipoCarga  ;
 public class ColecaoTipoCarga {
@@ -9,9 +11,13 @@ public class ColecaoTipoCarga {
     public ColecaoTipoCarga() {
         tipos= new ArrayList<>();
     }
-    public boolean addTipoCarga(TipoCarga tipoCarga){
-        return tipos.add(tipoCarga);
+    public boolean addTipoCarga(TipoCarga tipoCarga) {
+    boolean adicionado = tipos.add(tipoCarga);
+    if (adicionado) {
+        Collections.sort(tipos, Comparator.comparingInt(TipoCarga::getNumero));
     }
+    return adicionado;
+}
     public ArrayList<TipoCarga> getTipos() {
         return tipos;
     }
