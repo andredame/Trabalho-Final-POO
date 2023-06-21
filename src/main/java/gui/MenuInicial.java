@@ -337,7 +337,7 @@ public class MenuInicial extends JFrame implements ActionListener {
             int option = JOptionPane.showOptionDialog(
                     this,
                     message,
-                    "Carregar dados Do Save",
+                    "Carregar dados Salvos",
                     JOptionPane.OK_CANCEL_OPTION,
                     JOptionPane.PLAIN_MESSAGE,
                     null,
