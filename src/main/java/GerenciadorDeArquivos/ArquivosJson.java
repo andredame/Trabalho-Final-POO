@@ -115,31 +115,59 @@ public class ArquivosJson {
             this.colecaoViagem = viagem;
         }
     }
-
+    /**
+     * Retorna a coleção de cargas.
+     *
+     * @return a coleção de cargas
+     */
     public ColecaoCarga getColecaoCarga() {
         return colecaoCarga;
     }
-
+    /**
+     * Retorna a coleção de portos.
+     *
+     * @return a coleção de portos
+     */
     public ColecaoPortos getColecaoPorto() {
         return colecaoPorto;
     }
-
+    /**
+     * Retorna a coleção de distâncias.
+     *
+     * @return a coleção de distâncias
+     */
     public ColecaoDistancia getColecaoDistancia() {
         return colecaoDistancia;
     }
-
+    /**
+     * Retorna a coleção de navios.
+     *
+     * @return a coleção de navios
+     */
     public ColecaoNavio getColecaoNavio() {
         return colecaoNavio;
     }
-
+    /**
+     * Retorna a coleção de tipos de carga.
+     *
+     * @return a coleção de tipos de carga
+     */
     public ColecaoTipoCarga getColecaoTipoCarga() {
         return colecaoTipoCarga;
     }
-
+    /**
+     * Retorna a coleção de clientes.
+     *
+     * @return a coleção de clientes
+     */
     public ColecaoCliente getColecaoCliente() {
         return colecaoCliente;
     }
-
+    /**
+     * Retorna a coleção de viagens.
+     *
+     * @return a coleção de viagens
+     */
     public ColecaoViagens getColecaoViagem() {
         return colecaoViagem;
     }

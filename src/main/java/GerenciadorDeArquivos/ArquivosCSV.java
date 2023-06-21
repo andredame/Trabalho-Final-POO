@@ -6,15 +6,7 @@ import java.io.FileReader;
 import java.nio.charset.Charset;
 import java.util.Scanner;
 import Colecoes.*;
-import Objetos.Carga;
-import Objetos.Cliente;
-import Objetos.Distancia;
-import Objetos.Duravel;
-import Objetos.Navio;
-import Objetos.Perecivel;
-import Objetos.Porto;
-import Objetos.Prioridade;
-import Objetos.Situacao;
+import Objetos.*;
 
 public class ArquivosCSV {
     private ColecaoPortos colecaoPortos = new ColecaoPortos();
@@ -332,55 +324,121 @@ public class ArquivosCSV {
         }
     }
 
-    public ColecaoPortos getColecaoPortos() {
-        return colecaoPortos;
-    }
+    /**
+ * Retorna a coleção de portos adiciionado.
+ *
+ * @return a coleção de portos
+ */
+public ColecaoPortos getColecaoPortos() {
+    return colecaoPortos;
+}
 
-    public ColecaoTipoCarga getColecaoTipoCarga() {
-        return colecaoTipoCarga;
-    }
+/**
+ * Retorna a coleção de tipos de carga Adicionado.
+ *
+ * @return a coleção de tipos de carga
+ */
+public ColecaoTipoCarga getColecaoTipoCarga() {
+    return colecaoTipoCarga;
+}
 
-    public ColecaoCarga getColecaoCarga() {
-        return colecaoCarga;
-    }
+/**
+ * Retorna a coleção de cargas adicionada.
+ *
+ * @return a coleção de cargas
+ */
+public ColecaoCarga getColecaoCarga() {
+    return colecaoCarga;
+}
 
-    public ColecaoCliente getColecaoClientes() {
-        return colecaoClientes;
-    }
+/**
+ * Retorna a coleção de clientes adicionado.
+ *
+ * @return a coleção de clientes
+ */
+public ColecaoCliente getColecaoClientes() {
+    return colecaoClientes;
+}
 
-    public ColecaoNavio getColecaoNavios() {
-        return colecaoNavios;
-    }
+/**
+ * Retorna a coleção de navios adicionado.
+ *
+ * @return a coleção de navios
+ */
+public ColecaoNavio getColecaoNavios() {
+    return colecaoNavios;
+}
 
-    public ColecaoDistancia getColecaoDistancias() {
-        return colecaoDistancias;
-    }
+/**
+ * Retorna a coleção de distâncias adicionada.
+ *
+ * @return a coleção de distâncias
+ */
+public ColecaoDistancia getColecaoDistancias() {
+    return colecaoDistancias;
+}
 
-    public ColecaoViagens getColecaoViagens() {
-        return colecaoViagens;
-    }
-    public String getLePortoEntries() {
-        return lePortoEntries.toString();
-    }
+/**
+ * Retorna a coleção de viagens adicionado.
+ *
+ * @return a coleção de viagens
+ */
+public ColecaoViagens getColecaoViagens() {
+    return colecaoViagens;
+}
 
-    public String getLeDistanciaEntries() {
-        return leDistanciaEntries.toString();
-    }
+/**
+ * Retorna uma representação em formato de string das entradas do arquivo para os portos adicionados.
+ *
+ * @return uma string com as entradas do arquivo para os portos
+ */
+public String getLePortoEntries() {
+    return lePortoEntries.toString();
+}
 
-    public String getLeNaviosEntries() {
-        return leNaviosEntries.toString();
-    }
+/**
+ * Retorna uma representação em formato de string das entradas do arquivo para as distâncias adicionadas.
+ *
+ * @return uma string com as entradas do arquivo para as distâncias
+ */
+public String getLeDistanciaEntries() {
+    return leDistanciaEntries.toString();
+}
 
-    public String getLeClienteEntries() {
-        return leClienteEntries.toString();
-    }
+/**
+ * Retorna uma representação em formato de string das entradas do arquivo para os navios adicionados.
+ *
+ * @return uma string com as entradas do arquivo para os navios
+ */
+public String getLeNaviosEntries() {
+    return leNaviosEntries.toString();
+}
 
-    public String getLeTipoCargaEntries() {
-        return leTipoCargaEntries.toString();
-    }
+/**
+ * Retorna uma representação em formato de string das entradas do arquivo para os clientes adicionados.
+ *
+ * @return uma string com as entradas do arquivo para os clientes
+ */
+public String getLeClienteEntries() {
+    return leClienteEntries.toString();
+}
 
-    public String getLeCargaEntries() {
-        return leCargaEntries.toString();
-    }
+/**
+ * Retorna uma representação em formato de string das entradas do arquivo para os tipos de carga adicionados.
+ *
+ * @return uma string com as entradas do arquivo para os tipos de carga
+ */
+public String getLeTipoCargaEntries() {
+    return leTipoCargaEntries.toString();
+}
+
+/**
+ * Retorna uma representação em formato de string das entradas do arquivo para as cargas adicionadas.
+ *
+ * @return uma string com as entradas do arquivo para as cargas
+ */
+public String getLeCargaEntries() {
+    return leCargaEntries.toString();
+}
 
 }
