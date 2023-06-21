@@ -42,6 +42,7 @@ public class MenuInicial extends JFrame implements ActionListener {
     private JButton cadastrarTipo;
     private JButton alterarTipoCarga;
     private JButton cargasCadastradas;
+    private JButton novoFrete;
     private ArquivosJson json;
     private JButton salvarSair;
     private JButton carregarDadosSalvos;
@@ -76,6 +77,7 @@ public class MenuInicial extends JFrame implements ActionListener {
         salvarSair = new JButton("Salvar e Sair");
         carregarDadosSalvos = new JButton("Carregar Dados Salvos");
         carregarDadosIniciais = new JButton("Carregar Dados Iniciais");
+        novoFrete =new JButton("novo Frete");
 
         int x = 10;
         int y = 10;
@@ -94,9 +96,10 @@ public class MenuInicial extends JFrame implements ActionListener {
         naviosCadastradosButton.setBounds(x + 210, y + 120, width, height);
         cadastrarPortoButton.setBounds(x + 210, y + 160, width, height);
         portosCadastradosButton.setBounds(x + 210, y + 200, width, height);
-        salvarSair.setBounds(x + 240, y + 240, width, height);
-        carregarDadosSalvos.setBounds(x, y + 240, width, height);
-        carregarDadosIniciais.setBounds(x, y + 300, width, height);
+        salvarSair.setBounds(x + 210, y + 240, width, height);
+        carregarDadosSalvos.setBounds(x, y + 200, width, height);
+        carregarDadosIniciais.setBounds(x, y + 240, width, height);
+        novoFrete.setBounds(x+250+width, y, width, height);
 
         cargasCadastradas.addActionListener(this);
         alterarTipoCarga.addActionListener(this);
@@ -112,6 +115,7 @@ public class MenuInicial extends JFrame implements ActionListener {
         salvarSair.addActionListener(this);
         carregarDadosSalvos.addActionListener(this);
         carregarDadosIniciais.addActionListener(this);
+        novoFrete.addActionListener(this);
         this.add(cargasCadastradas);
         this.add(alterarTipoCarga);
         this.add(cadastrarCarga);
@@ -126,10 +130,46 @@ public class MenuInicial extends JFrame implements ActionListener {
         this.add(salvarSair);
         this.add(carregarDadosSalvos);
         this.add(carregarDadosIniciais);
+        this.add(novoFrete);
 
         setVisible(true);
     }
+    private void novoFrete() {
+        while (true) {
+            try {
+                JTextField codigoBarra = new JTextField(10);
+                
 
+                Object[] message = {
+                    "ID do porto:", codigoBarra,
+                };
+
+                int option = JOptionPane.showOptionDialog(this,message, "Cadastrar Porto", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,null, null,null);
+
+                if (option == JOptionPane.OK_OPTION) {
+                    Carga cargaAlocar = colecaoCarga.getCargaCod(Integer.parseInt(codigoBarra.getText()));
+
+                    if (cargaAlocar != null) {
+                        if(cargaAlocar.getSituacao() == Situacao.LOCADO || cargaAlocar.getSituacao() == Situacao.FINALIZADO ){
+                            JOptionPane.showMessageDialog(this,
+                                "Carga indisponivel para ser Locada");
+                        }else{
+                            
+                        }
+                            
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Carga Não Encontrada no Sistena!");
+                        break;
+                    }
+                } else {
+                    break; 
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this,
+                    "Entrada inválida. Por favor, insira um valor numérico válido para o ID.");
+            }
+        }
+    }
     private void salvarESair() {
         try {
             JTextField arquivoTextField = new JTextField(10);

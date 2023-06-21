@@ -1,4 +1,5 @@
 package Objetos;
+
 public class Carga {
     private int identificador;
     private int cliente;
@@ -10,9 +11,6 @@ public class Carga {
     private int tipoCarga;
     private Prioridade prioridade;
     private Situacao situacao;
-    
-
-    
 
     public Carga(int identificador, int cliente, int origem, int destino, int peso, double valorDeclarado,
             int tempoMaximo, int tipoCarga, Prioridade prioridade, Situacao situacao) {
@@ -27,24 +25,6 @@ public class Carga {
         this.prioridade = prioridade;
         this.situacao = situacao;
     }
-
-    public double calculaPrecoFrete() {
-
-        return calculaPrecoDistancia()+calculaPrecoPeso()+calculaPrecoRegiao();
-    }
-
-    public double calculaPrecoDistancia() {
-        return 0.0;
-    }
-
-    public double calculaPrecoPeso() {
-        return 0.0;
-    }
-
-    public double calculaPrecoRegiao() {
-       return 0.0;
-    }
-
 
     public int getIdentificador() {
         return identificador;
@@ -109,7 +89,7 @@ public class Carga {
     public void setTipoCarga(int tipoCarga) {
         this.tipoCarga = tipoCarga;
     }
-    
+
     public Prioridade getPrioridade() {
         return prioridade;
     }
@@ -125,6 +105,5 @@ public class Carga {
     public void setSituacao(Situacao situacao) {
         this.situacao = situacao;
     }
-
 
 }

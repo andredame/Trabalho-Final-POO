@@ -22,27 +22,44 @@ public class Frete {
         this.tipoCarga = tipoCarga;
     }
 
-    public double calculaFrete() {
+    public double getValorDoFrete() {
+        return valorDoFrete;
+    }
 
-        return 1.0;
+    private void calculaFrete() {
+        precoDistancia();
+        precoPeso();
+        precoCustoRegiao();
+        this.valorDoFrete = precoDistancia + precoPeso + precoCustoRegiao;
 
     }
 
-    public double precoDistancia() {
+    private void precoDistancia() {
         if (carga.getPrioridade() == Prioridade.RAPIDO) {
-            return distancia.getDistancia() * navio.getCustoPorMilhaBasico() * 2;
+            this.precoDistancia = distancia.getDistancia() * navio.getCustoPorMilhaBasico() * 2;
+        } else {
+            this.precoDistancia = distancia.getDistancia() * navio.getCustoPorMilhaBasico();
         }
 
-        return distancia.getDistancia() * navio.getCustoPorMilhaBasico();
-
     }
 
-    public double precoPeso(){
+    private void precoPeso() {
 
         if (tipoCarga instanceof Duravel) {
-            Duravel aux=(Duravel) tipoCarga; 
-            return carga.getPeso()*1.5+aux.getPercentualImposto();
+            Duravel aux = (Duravel) tipoCarga;
+            this.precoPeso = carga.getPeso() * 1.5 + aux.getPercentualImposto();
+        } else {
+            this.precoPeso = carga.getPeso() * 2;
         }
-        return carga.getPeso()*2;
+
+    }
+
+    private void precoCustoRegiao() {
+        if (porto.getPais().equalsIgnoreCase("brasil")) {
+            this.precoCustoRegiao = 10.000;
+        } else {
+            this.precoCustoRegiao = 50.000;
+        }
+
     }
 }
