@@ -141,7 +141,9 @@ public class MenuInicial extends JFrame implements ActionListener {
 
         setVisible(true);
     }
-
+    /**
+     * Solicitar o codigo da carga para criar um novo frete 
+     */
     private void novoFrete() {
         while (true) {
             try {
@@ -209,7 +211,9 @@ public class MenuInicial extends JFrame implements ActionListener {
             }
         }
     }
-
+    /**
+     * Solicita o nome de arquivo para salvar as informações
+     */
     private void salvarESair() {
         try {
             JTextField arquivoTextField = new JTextField(10);
@@ -238,7 +242,9 @@ public class MenuInicial extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "ERRO AO SALVAR");
         }
     }
-
+    /**
+     * Solicita o nome de arquivo para Carregados os Dados 
+     */
     private void carregarDadosIniciais() {
         // Falta pegar entrada do usuario
         try {
@@ -298,6 +304,9 @@ public class MenuInicial extends JFrame implements ActionListener {
         }
 
     }
+    /** 
+     * Frame para exibir as viagens
+    */
     private void exibirViagens(){
          StringBuilder sb = new StringBuilder();
 
@@ -327,7 +336,9 @@ public class MenuInicial extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(null, scrollPane, "Visualização Viagem", JOptionPane.PLAIN_MESSAGE);
         System.out.println(sb);
     }
-    
+    /**
+     * Solicita um nome de arquivo para carregador os dados Salvos 
+     */
     private void carregarDadosSalvosDoSave() {
         try {
             JTextField arquivoTextField = new JTextField(10);
@@ -365,7 +376,9 @@ public class MenuInicial extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "ERRO AO SALVAR");
         }
     }
-
+    /**
+     * Frame para Cadastrar novo Cliente
+     */
     private void cadastrarCliente() {
         while (true) {
             try {
@@ -412,7 +425,9 @@ public class MenuInicial extends JFrame implements ActionListener {
             }
         }
     }
-
+    /**
+     * Solicita o codigo Carga para ser trocada a sua situacao 
+     */
     private void CodCarga() {
         while (true) {
             try {
@@ -456,7 +471,10 @@ public class MenuInicial extends JFrame implements ActionListener {
         }
 
     }
-
+    /**
+     * Troca a situação de uma carga.
+     * @param carga A carga cuja situação será alterada.
+     */
     private void trocarSituacaoCarga(Carga carga) {
 
         JRadioButton locadoRadioButton = new JRadioButton("Locado");
@@ -507,7 +525,9 @@ public class MenuInicial extends JFrame implements ActionListener {
             }
         }
     }
-
+     /**
+     * Método para Exibir as Cargas Cadastrados 
+     */
     private void exibirCargasCadastradas() {
 
         StringBuilder sb = new StringBuilder();
@@ -539,7 +559,9 @@ public class MenuInicial extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(null, scrollPane, "Cargas Cadastradas", JOptionPane.PLAIN_MESSAGE);
         System.out.println(sb);
     }
-
+    /**
+     * Frame para Cadastrar uma Nova Carga
+     */
     private void cadastrarCarga() {
         while (true) {
             try {
@@ -625,7 +647,9 @@ public class MenuInicial extends JFrame implements ActionListener {
             }
         }
     }
-
+    /**
+     * Cadastrar um Novo Tipo De carga
+     */
     private void cadastrarNovoTipoDeCarga() {
         while (true) {
             try {
@@ -717,7 +741,9 @@ public class MenuInicial extends JFrame implements ActionListener {
             }
         }
     }
-
+     /**
+     * Método para Exibir os Clientes Cadastrados 
+     */
     private void exibirClientesCadastrados() {
         StringBuilder sb = new StringBuilder();
 
@@ -741,7 +767,9 @@ public class MenuInicial extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(null, scrollPane, "Clientes Cadastrados", JOptionPane.PLAIN_MESSAGE);
         System.out.println(sb);
     }
-
+    /**
+     * Cadastrar um Novo Porto
+     */
     private void cadastrarPorto() {
         while (true) {
             try {
@@ -783,7 +811,9 @@ public class MenuInicial extends JFrame implements ActionListener {
         }
     }
 
-    
+     /**
+     * Método para Exibir os Portos já Cadastrados 
+     */
 
     private void exibirPortosCadastrados() {
         StringBuilder sb = new StringBuilder();
@@ -808,7 +838,9 @@ public class MenuInicial extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(null, scrollPane, "Portos Cadastrados", JOptionPane.PLAIN_MESSAGE);
         System.out.println(sb);
     }
-
+    /**
+     * Cadastrar um Novo Navio
+     */
     private void cadastrarNavio() {
         while (true) {
             try {
@@ -853,7 +885,11 @@ public class MenuInicial extends JFrame implements ActionListener {
             }
         }
     }
-
+    /**
+     * Verifica se um Navio ja esta cadastrado
+     * @param nome nome do navio para fazer a verificação 
+     * @return true se existe um navio com o nome. Caso contrario é falso
+     */
     private boolean navioJaCadastrado(String nome) {
         for (Navio navio : colecaoNavio.getNavios()) {
             if (navio.getNome().equalsIgnoreCase(nome)) {
@@ -862,7 +898,9 @@ public class MenuInicial extends JFrame implements ActionListener {
         }
         return false;
     }
-
+    /**
+     * Método para Exibir os Navios Cadastrados 
+     */
     private void exibirNaviosCadastrados() {
         StringBuilder sb = new StringBuilder();
 
