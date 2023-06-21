@@ -43,6 +43,7 @@ public class MenuInicial extends JFrame implements ActionListener {
     private JButton alterarTipoCarga;
     private JButton cargasCadastradas;
     private JButton novoFrete;
+    private JButton viagensEmProgresso;
     private ArquivosJson json;
     private JButton salvarSair;
     private JButton carregarDadosSalvos;
@@ -74,10 +75,11 @@ public class MenuInicial extends JFrame implements ActionListener {
         cadastrarCarga = new JButton("Cadastrar Carga");
         alterarTipoCarga = new JButton("Alterar Situacao Carga");
         cargasCadastradas = new JButton("Cargas Cadastradas");
-        salvarSair = new JButton("Salvar e Sair");
+        salvarSair = new JButton("Salvar");
         carregarDadosSalvos = new JButton("Carregar Dados Salvos");
         carregarDadosIniciais = new JButton("Carregar Dados Iniciais");
-        novoFrete = new JButton("novo Frete");
+        novoFrete = new JButton("Fretar Carga");
+        viagensEmProgresso = new JButton("Visualizar Viagens");
 
         int x = 10;
         int y = 10;
@@ -101,6 +103,7 @@ public class MenuInicial extends JFrame implements ActionListener {
         carregarDadosSalvos.setBounds(x + 250+width, y + 300, width, height);
         carregarDadosIniciais.setBounds(x+250+width, y + 260, width, height);
         novoFrete.setBounds(x + 250 + width, y, width, height);
+        viagensEmProgresso.setBounds(x+250+width, y+40, width, height);
          
 
         cargasCadastradas.addActionListener(this);
@@ -118,6 +121,7 @@ public class MenuInicial extends JFrame implements ActionListener {
         carregarDadosSalvos.addActionListener(this);
         carregarDadosIniciais.addActionListener(this);
         novoFrete.addActionListener(this);
+        viagensEmProgresso.addActionListener(this);
         this.add(cargasCadastradas);
         this.add(alterarTipoCarga);
         this.add(cadastrarCarga);
@@ -133,6 +137,7 @@ public class MenuInicial extends JFrame implements ActionListener {
         this.add(carregarDadosSalvos);
         this.add(carregarDadosIniciais);
         this.add(novoFrete);
+        this.add(viagensEmProgresso);
 
         setVisible(true);
     }
@@ -168,11 +173,17 @@ public class MenuInicial extends JFrame implements ActionListener {
                                 TipoCarga tipoCarga = colecaoTipoCarga.procurarNumeroCarga(cargaAlocar.getTipoCarga());
                                 Navio navio = colecaoNavio.selecionaNavioIdeal(cargaAlocar, distancia);
                                 if (navio != null) {
+                                    if(navio.getEspacoDoNavio() == Espaco.OCUPADO){
+                                        Carga carga = colecaoViagens.procurarNavio(navio);
+                                        carga.setSituacao(Situacao.CANCELADO);
+                                    }
                                     Frete frete = new Frete(distancia, cargaAlocar, porto, navio, tipoCarga,porto2);
                                     frete.calculaFrete();
                                     double valorFrete = frete.getValorDoFrete();
                                     cargaAlocar.setSituacao(Situacao.LOCADO);
                                     navio.setEspacoDoNavio(Espaco.OCUPADO);
+                                    Viagem viagem = new Viagem(frete, distancia, navio, cliente, tipoCarga, cargaAlocar, porto, porto2);
+                                    colecaoViagens.addViagem(viagem);
                                     JOptionPane.showMessageDialog(this, "Carga Fretada com sucesso, o valor do frete é de: R$ "+valorFrete);
                                 }
                                 else{
@@ -259,7 +270,26 @@ public class MenuInicial extends JFrame implements ActionListener {
                 this.colecaoPortos = csv.getColecaoPortos();
                 this.colecaoDistancia = csv.getColecaoDistancias();
                 this.colecaoViagens = csv.getColecaoViagens();
-                JOptionPane.showMessageDialog(this, "Dados carregados com sucesso");
+                String dadosCadastrados = "";
+                dadosCadastrados+="Cargas Cadastrados"+"\n";
+                dadosCadastrados+= csv.getLeCargaEntries()+"\n";
+                dadosCadastrados+="Clientes Cadastrados"+"\n";
+                dadosCadastrados+= csv.getLeClienteEntries()+"\n";
+                dadosCadastrados+="Distancias Cadastrados"+"\n";
+                dadosCadastrados+= csv.getLeDistanciaEntries()+"\n";
+                dadosCadastrados+="Navios Cadastrados"+"\n";
+                dadosCadastrados+= csv.getLeNaviosEntries()+"\n";
+                dadosCadastrados+="Tipo Cargas Cadastrados"+"\n";
+                dadosCadastrados+= csv.getLeTipoCargaEntries()+"\n";
+                dadosCadastrados+="Portos Cadastrados"+"\n";
+                dadosCadastrados+= csv.getLePortoEntries()+"\n";
+                JTextArea textArea = new JTextArea(dadosCadastrados);
+                textArea.setEditable(false);
+
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            scrollPane.setPreferredSize(new Dimension(400, 300));
+                
+            JOptionPane.showMessageDialog(null, scrollPane, "Dados Cadastradas", JOptionPane.PLAIN_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Dados NÃO carregados, tente novamente ");
             }
@@ -268,7 +298,36 @@ public class MenuInicial extends JFrame implements ActionListener {
         }
 
     }
+    private void exibirViagens(){
+         StringBuilder sb = new StringBuilder();
 
+        for (Viagem viagem : colecaoViagens.getViagens()) {
+            sb.append("Valor do frete: ").append(viagem.getFrete().getValorDoFrete()).append("\n");
+            sb.append("Cliente: ").append(viagem.getCliente().getCod()).append("\n");
+            sb.append("Destino: ").append(viagem.getPortoDestino().getId()).append("\n");
+            sb.append("Origem: ").append(viagem.getPortoOrigem().getId()).append("\n");
+            sb.append("Peso: ").append(viagem.getCarga().getPeso()).append("\n");
+            sb.append("Valor Declarado: ").append(viagem.getCarga().getValorDeclarado()).append("\n");
+            sb.append("Tempo Máximo: ").append(viagem.getCarga().getTempoMaximo()).append("\n");
+            sb.append("Tipo de Carga: ").append(viagem.getTipoCarga().getNumero()).append("\n");
+            sb.append("Prioridade: ").append(viagem.getCarga().getPrioridade()).append("\n");
+            sb.append("Situação: ").append(viagem.getCarga().getSituacao()).append("\n");
+            sb.append("--------------------\n");
+        }
+
+        if (colecaoViagens.getViagens().isEmpty()) {
+            sb.append("Nenhuma Viagem em Progresso!");
+        }
+        JTextArea textArea = new JTextArea(sb.toString());
+        textArea.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(400, 300));
+
+        JOptionPane.showMessageDialog(null, scrollPane, "Visualização Viagem", JOptionPane.PLAIN_MESSAGE);
+        System.out.println(sb);
+    }
+    
     private void carregarDadosSalvosDoSave() {
         try {
             JTextField arquivoTextField = new JTextField(10);
@@ -924,6 +983,9 @@ public class MenuInicial extends JFrame implements ActionListener {
         }
         if (e.getSource() == novoFrete) {
             novoFrete();
+        }
+        if(e.getSource() == viagensEmProgresso){
+            exibirViagens();
         }
     }
 

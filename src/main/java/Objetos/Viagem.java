@@ -6,13 +6,42 @@ public class Viagem {
     private Cliente cliente;
     private TipoCarga tipoCarga;
     private Carga carga;
-
-    public Viagem(Distancia distancia, Navio navio, Cliente cliente, TipoCarga tipoCarga, Carga carga,Prioridade p,Situacao s) {
+    private Frete frete;
+    private Porto portoOrigem;
+    private Porto portoDestino;
+    public Viagem(Frete frete,Distancia distancia, Navio navio, Cliente cliente, TipoCarga tipoCarga, Carga carga,Porto portoOrigem, Porto portoDestino) {
+        this.frete=frete;
         this.distancia = distancia;
         this.navio = navio;
         this.cliente = cliente;
         this.tipoCarga = tipoCarga;
         this.carga = carga;
+        this.portoOrigem=portoOrigem;
+        this.portoDestino=portoDestino;
+    }
+
+    public Frete getFrete() {
+        return frete;
+    }
+
+    public void setFrete(Frete frete) {
+        this.frete = frete;
+    }
+
+    public Porto getPortoOrigem() {
+        return portoOrigem;
+    }
+
+    public void setPortoOrigem(Porto portoOrigem) {
+        this.portoOrigem = portoOrigem;
+    }
+
+    public Porto getPortoDestino() {
+        return portoDestino;
+    }
+
+    public void setPortoDestino(Porto portoDestino) {
+        this.portoDestino = portoDestino;
     }
 
     public Distancia getDistancia() {

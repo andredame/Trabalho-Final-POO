@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import Objetos.Carga;
+import Objetos.Navio;
 
 public class ColecaoCarga {
     private ArrayList<Carga> cargas;
@@ -51,5 +52,6 @@ public class ColecaoCarga {
         }
         return null;
     }
-
+    
 }
+

@@ -32,9 +32,16 @@ public class ArquivosCSV {
     private Scanner leCarga = null;
     private String palavraPrefixo;
     private boolean deuErroNaLeitura = false;
+    
+    private StringBuilder lePortoEntries = new StringBuilder();
+    private StringBuilder leDistanciaEntries = new StringBuilder();
+    private StringBuilder leNaviosEntries = new StringBuilder();
+    private StringBuilder leClienteEntries = new StringBuilder();
+    private StringBuilder leTipoCargaEntries = new StringBuilder();
+    private StringBuilder leCargaEntries = new StringBuilder();
 
     public ArquivosCSV(String palavraPrefixo) {
-
+        
         lePorto = new Scanner(System.in);
         leDistancia = new Scanner(System.in);
         leNavios = new Scanner(System.in);
@@ -151,6 +158,7 @@ public class ArquivosCSV {
         String a = lePorto.nextLine();
         while (lePorto.hasNextLine()) {
             a = lePorto.nextLine();
+            lePortoEntries.append(a).append("\n");
             String linhaDoArquivo[] = a.split(";");
             codigoPorto = Integer.parseInt(linhaDoArquivo[0]);
             nomePorto = linhaDoArquivo[1];
@@ -171,7 +179,7 @@ public class ArquivosCSV {
         String a = leDistancia.nextLine();
         while (leDistancia.hasNextLine()) {
             a = leDistancia.nextLine();
-
+            leDistanciaEntries.append(a).append("\n");
             String linhaDoArquivo[] = a.split(";");
             origem = Integer.parseInt(linhaDoArquivo[0]);
             ;
@@ -197,7 +205,7 @@ public class ArquivosCSV {
         String a = leNavios.nextLine();
         while (leNavios.hasNextLine()) {
             a = leNavios.nextLine();
-
+            leNaviosEntries.append(a).append("\n");
             String linhaDoArquivo[] = a.split(";");
             nome = linhaDoArquivo[0];
             velocidade = Double.parseDouble(linhaDoArquivo[1].replace(",", "."));
@@ -219,7 +227,7 @@ public class ArquivosCSV {
         String a = leCliente.nextLine();
         while (leCliente.hasNextLine()) {
             a = leCliente.nextLine();
-
+            leClienteEntries.append(a).append("\n");
             String linhaDoArquivo[] = a.split(";");
             cod = Integer.parseInt(linhaDoArquivo[0]);
             nome = linhaDoArquivo[1];
@@ -241,7 +249,7 @@ public class ArquivosCSV {
         String a = leTipoCarga.nextLine();
         while (leTipoCarga.hasNextLine()) {
             a = leTipoCarga.nextLine();
-
+            leTipoCargaEntries.append(a).append("\n");
             String linhaDoArquivo[] = a.split(";");
             numero = Integer.parseInt(linhaDoArquivo[0]);
             descricao = linhaDoArquivo[1];
@@ -285,7 +293,7 @@ public class ArquivosCSV {
         String a = leCarga.nextLine();
         while (leCarga.hasNextLine()) {
             a = leCarga.nextLine();
-
+            leCargaEntries.append(a).append("\n");
             String linhaDoArquivo[] = a.split(";");
             codigo = Integer.parseInt(linhaDoArquivo[0]);
             cliente = Integer.parseInt(linhaDoArquivo[1]);
@@ -350,6 +358,29 @@ public class ArquivosCSV {
 
     public ColecaoViagens getColecaoViagens() {
         return colecaoViagens;
+    }
+    public String getLePortoEntries() {
+        return lePortoEntries.toString();
+    }
+
+    public String getLeDistanciaEntries() {
+        return leDistanciaEntries.toString();
+    }
+
+    public String getLeNaviosEntries() {
+        return leNaviosEntries.toString();
+    }
+
+    public String getLeClienteEntries() {
+        return leClienteEntries.toString();
+    }
+
+    public String getLeTipoCargaEntries() {
+        return leTipoCargaEntries.toString();
+    }
+
+    public String getLeCargaEntries() {
+        return leCargaEntries.toString();
     }
 
 }
