@@ -453,6 +453,7 @@ public class MenuInicial extends JFrame implements ActionListener {
                             break;
                         } else {
                             JOptionPane.showMessageDialog(this, "Não pode ser alterada, Carga já finalizada");
+                            
                             break;
                         }
 
@@ -519,6 +520,10 @@ public class MenuInicial extends JFrame implements ActionListener {
             } else if (pendenteRadioButton.isSelected()) {
                 carga.setSituacao(Situacao.PENDENTE);
             } else if (finalizadoRadioButton.isSelected()) {
+                Navio navio= colecaoViagens.procuraNavioQueTemACarga(carga);
+                    if (navio!=null) {
+                        navio.setEspacoDoNavio(Espaco.LIVRE);
+                    }
                 carga.setSituacao(Situacao.FINALIZADO);
             } else if (canceladoRadioButton.isSelected()) {
                 carga.setSituacao(Situacao.CANCELADO);

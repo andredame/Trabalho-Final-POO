@@ -2,9 +2,6 @@ package Colecoes;
 import Objetos.*;
 import java.util.ArrayList;
 
-import Objetos.Navio;
-import Objetos.Viagem;
-
 /**
  * ColecaoViagens representa coleção de objetos Viagem.
  */
@@ -59,5 +56,19 @@ public class ColecaoViagens {
         }
         return null;
     }
+    /**
+     * Procura o navio de acordo com a Carga passada 
+     * @param carga Carga a ser procurada
+     * @return Navio que esta levando essa carga 
+     */
+    public Navio procuraNavioQueTemACarga(Carga carga){
+        for (Viagem viagem : viagens) {
+            if (viagem.getCarga().getIdentificador()==carga.getIdentificador()) {
+                return viagem.getNavio();
+            }
+        }
+        return null;
+    }
 
 }
+
