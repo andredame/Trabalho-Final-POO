@@ -62,7 +62,7 @@ public class ColecaoNavio {
         for (Navio navio : navios) {
             if (navio.getAutonomia() > distancia.getDistancia()) {
                 double tempoDoNavio = navio.getAutonomia() / navio.getVelocidade();
-                if (carga.getTempoMaximo() < tempoDoNavio) {
+                if (carga.getTempoMaximo() > tempoDoNavio) {
                     if (carga.getPrioridade() == Prioridade.RAPIDO) {
                         if (n == null || navio.getVelocidade() > n.getVelocidade()) {
                             n = navio;

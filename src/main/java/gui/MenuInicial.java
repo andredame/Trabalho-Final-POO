@@ -77,7 +77,7 @@ public class MenuInicial extends JFrame implements ActionListener {
         salvarSair = new JButton("Salvar e Sair");
         carregarDadosSalvos = new JButton("Carregar Dados Salvos");
         carregarDadosIniciais = new JButton("Carregar Dados Iniciais");
-        novoFrete =new JButton("novo Frete");
+        novoFrete = new JButton("novo Frete");
 
         int x = 10;
         int y = 10;
@@ -99,7 +99,7 @@ public class MenuInicial extends JFrame implements ActionListener {
         salvarSair.setBounds(x + 210, y + 240, width, height);
         carregarDadosSalvos.setBounds(x, y + 200, width, height);
         carregarDadosIniciais.setBounds(x, y + 240, width, height);
-        novoFrete.setBounds(x+250+width, y, width, height);
+        novoFrete.setBounds(x + 250 + width, y, width, height);
 
         cargasCadastradas.addActionListener(this);
         alterarTipoCarga.addActionListener(this);
@@ -134,51 +134,59 @@ public class MenuInicial extends JFrame implements ActionListener {
 
         setVisible(true);
     }
+
     private void novoFrete() {
         while (true) {
             try {
                 JTextField codigoBarra = new JTextField(10);
-                
 
                 Object[] message = {
-                    "Codigo da Carga:", codigoBarra,
+                        "Codigo da Carga:", codigoBarra,
                 };
 
-                int option = JOptionPane.showOptionDialog(this,message, "Fretar Carga", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,null, null,null);
+                int option = JOptionPane.showOptionDialog(this, message, "Fretar Carga", JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.PLAIN_MESSAGE, null, null, null);
 
                 if (option == JOptionPane.OK_OPTION) {
                     Carga cargaAlocar = colecaoCarga.getCargaCod(Integer.parseInt(codigoBarra.getText()));
 
                     if (cargaAlocar != null) {
-                        if(cargaAlocar.getSituacao() == Situacao.LOCADO || cargaAlocar.getSituacao() == Situacao.FINALIZADO ){
+                        if (cargaAlocar.getSituacao() == Situacao.LOCADO
+                                || cargaAlocar.getSituacao() == Situacao.FINALIZADO) {
                             JOptionPane.showMessageDialog(this,
-                                "Carga indisponivel para ser Locada");
-                        }else{
-                            Cliente cliente=colecaoCliente.procuraId(cargaAlocar.getCliente());
-                            Distancia distancia=colecaoDistancia.procuraRota(cargaAlocar.getOrigem(), cargaAlocar.getDestino());
-                            Porto porto=colecaoPortos.getPortoPorId(cargaAlocar.getDestino());
-                            TipoCarga tipoCarga=colecaoTipoCarga.procurarNumeroCarga(cargaAlocar.getTipoCarga());
-                            Navio navio=colecaoNavio.selecionaNavioIdeal(cargaAlocar, distancia);
-                            Frete frete=new Frete(distancia, cargaAlocar, porto, navio, tipoCarga);
-                            frete.calculaFrete();
-                            double valorFrete=frete.getValorDoFrete();
+                                    "Carga indisponivel para ser Locada");
+                        } else {
+                            try {
 
-                            
+                                Cliente cliente = colecaoCliente.procuraId(cargaAlocar.getCliente());
+                                Distancia distancia = colecaoDistancia.procuraRota(cargaAlocar.getOrigem(),
+                                        cargaAlocar.getDestino());
+                                Porto porto = colecaoPortos.getPortoPorId(cargaAlocar.getDestino());
+                                TipoCarga tipoCarga = colecaoTipoCarga.procurarNumeroCarga(cargaAlocar.getTipoCarga());
+                                Navio navio = colecaoNavio.selecionaNavioIdeal(cargaAlocar, distancia);
+                                Frete frete = new Frete(distancia, cargaAlocar, porto, navio, tipoCarga);
+                                frete.calculaFrete();
+                                double valorFrete = frete.getValorDoFrete();
+                            } catch (Exception e) {
+
+                            }
+
                         }
-                            
+
                     } else {
                         JOptionPane.showMessageDialog(this, "Carga Não Encontrada no Sistena!");
                         break;
                     }
                 } else {
-                    break; 
+                    break;
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this,
-                    "Entrada inválida. Por favor, insira um valor numérico válido para o ID.");
+                        "Entrada inválida. Por favor, insira um valor numérico válido para o ID.");
             }
         }
     }
+
     private void salvarESair() {
         try {
             JTextField arquivoTextField = new JTextField(10);
