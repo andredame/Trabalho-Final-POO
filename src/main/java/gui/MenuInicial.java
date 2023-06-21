@@ -84,22 +84,24 @@ public class MenuInicial extends JFrame implements ActionListener {
         int width = 180;
         int height = 30;
 
-        cadastrarCarga.setBounds(x, y, width, height);
-        cargasCadastradas.setBounds(x, y + 40, width, height);
-        alterarTipoCarga.setBounds(x, y + 80, width, height);
-        cadastrarViagem.setBounds(x, y + 120, width, height);
-        cadastrarTipo.setBounds(x, y + 160, width, height);
 
-        cadastrarCliente.setBounds(x + 210, y, width, height);
-        clientesCadastrados.setBounds(x + 210, y + 40, width, height);
-        cadastrarNavioButton.setBounds(x + 210, y + 80, width, height);
-        naviosCadastradosButton.setBounds(x + 210, y + 120, width, height);
-        cadastrarPortoButton.setBounds(x + 210, y + 160, width, height);
-        portosCadastradosButton.setBounds(x + 210, y + 200, width, height);
-        salvarSair.setBounds(x + 210, y + 240, width, height);
-        carregarDadosSalvos.setBounds(x, y + 200, width, height);
-        carregarDadosIniciais.setBounds(x, y + 240, width, height);
+        
+        cadastrarCarga.setBounds(x, y, width, height);
+        cadastrarCliente.setBounds(x , y+40, width, height);
+        cadastrarPortoButton.setBounds(x, y + 80, width, height);
+        cadastrarNavioButton.setBounds(x , y +120, width, height);
+        cadastrarTipo.setBounds(x , y + 160, width, height);
+        cadastrarViagem.setBounds(x, y + 200, width, height);
+        alterarTipoCarga.setBounds(x, y + 240, width, height);
+        cargasCadastradas.setBounds(x+210, y , width, height);
+        clientesCadastrados.setBounds(x +210, y + 40, width, height);
+        naviosCadastradosButton.setBounds(x + 210, y + 80, width, height);
+        portosCadastradosButton.setBounds(x + 210, y + 120, width, height);
+        salvarSair.setBounds(x + 210, y + 300, width, height);
+        carregarDadosSalvos.setBounds(x + 250+width, y + 300, width, height);
+        carregarDadosIniciais.setBounds(x+250+width, y + 260, width, height);
         novoFrete.setBounds(x + 250 + width, y, width, height);
+         
 
         cargasCadastradas.addActionListener(this);
         alterarTipoCarga.addActionListener(this);
