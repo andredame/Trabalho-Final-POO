@@ -164,9 +164,15 @@ public class MenuInicial extends JFrame implements ActionListener {
                                 Porto porto = colecaoPortos.getPortoPorId(cargaAlocar.getDestino());
                                 TipoCarga tipoCarga = colecaoTipoCarga.procurarNumeroCarga(cargaAlocar.getTipoCarga());
                                 Navio navio = colecaoNavio.selecionaNavioIdeal(cargaAlocar, distancia);
-                                Frete frete = new Frete(distancia, cargaAlocar, porto, navio, tipoCarga);
-                                frete.calculaFrete();
-                                double valorFrete = frete.getValorDoFrete();
+                                if (navio != null) {
+                                    Frete frete = new Frete(distancia, cargaAlocar, porto, navio, tipoCarga);
+                                    frete.calculaFrete();
+                                    double valorFrete = frete.getValorDoFrete();
+                                }
+                                else{
+                                    JOptionPane.showMessageDialog(this, "Não há Nenhum navio que consiga fazer essa viagem");
+                                }
+
                             } catch (Exception e) {
 
                             }
