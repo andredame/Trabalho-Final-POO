@@ -3,8 +3,9 @@ package Colecoes;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import Objetos.Navio;
 
+import Objetos.Cliente;
+import Objetos.Navio;
 
 public class ColecaoNavio {
     private ArrayList<Navio> navios;
@@ -18,16 +19,24 @@ public class ColecaoNavio {
     }
 
     public boolean addNavio(Navio navio) {
-    boolean adicionado = navios.add(navio);
-    if (adicionado) {
-        Collections.sort(navios, Comparator.comparing(Navio::getNome));
+        boolean adicionado = navios.add(navio);
+        if (adicionado) {
+            Collections.sort(navios, Comparator.comparing(Navio::getNome));
+        }
+        return adicionado;
     }
-    return adicionado;
-}
 
-    public Navio getNavio(int i){
+    public Navio getNavio(int i) {
         return navios.get(i);
     }
 
+    public boolean procuraNomeNavio(String nome) {
+        for (Navio navio : navios) {
+            if (navio.getNome().equalsIgnoreCase(nome)) {
+                return true;
+            }
+        }
+        return false;
+    }
     
 }

@@ -1,0 +1,24 @@
+{
+  "colecaoCarga": {
+    "cargas": []
+  },
+  "colecaoPorto": {
+    "portos": []
+  },
+  "colecaoNavio": {
+    "navios": [
+      {
+        "nome": "999999",
+        "velocidade": 99999.0,
+        "autonomia": 99999.0,
+        "custoPorMilhaBasico": 99999.0
+      }
+    ]
+  },
+  "colecaoTipoCarga": {
+    "tipos": []
+  },
+  "colecaoCliente": {
+    "clientes": []
+  }
+}

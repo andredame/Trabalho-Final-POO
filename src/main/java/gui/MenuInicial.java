@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import Objetos.*;
 import Colecoes.*;
@@ -370,7 +373,9 @@ public class MenuInicial extends JFrame implements ActionListener {
     }
 
     private void exibirCargasCadastradas() {
+
         StringBuilder sb = new StringBuilder();
+
         for (Carga carga : colecaoCarga.getCargas()) {
             sb.append("Identificador: ").append(carga.getIdentificador()).append("\n");
             sb.append("Cliente: ").append(carga.getCliente()).append("\n");
@@ -384,10 +389,19 @@ public class MenuInicial extends JFrame implements ActionListener {
             sb.append("Situação: ").append(carga.getSituacao()).append("\n");
             sb.append("--------------------\n");
         }
-        if (colecaoCarga.getCargas().size() == 0) {
+
+        if (colecaoCarga.getCargas().isEmpty()) {
             sb.append("Nenhuma carga cadastrada.");
         }
-        JOptionPane.showMessageDialog(this, sb.toString());
+
+        JTextArea textArea = new JTextArea(sb.toString());
+        textArea.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(400, 300));
+
+        JOptionPane.showMessageDialog(null, scrollPane, "Cargas Cadastradas", JOptionPane.PLAIN_MESSAGE);
+        System.out.println(sb);
     }
 
     private void cadastrarCarga() {
@@ -560,16 +574,26 @@ public class MenuInicial extends JFrame implements ActionListener {
 
     private void exibirClientesCadastrados() {
         StringBuilder sb = new StringBuilder();
+
         for (Cliente cliente : colecaoCliente.getCliente()) {
             sb.append("Código: ").append(cliente.getCod()).append("\n");
             sb.append("Nome: ").append(cliente.getNome()).append("\n");
             sb.append("Email: ").append(cliente.getEmail()).append("\n");
             sb.append("--------------------\n");
         }
-        if (colecaoCliente.getCliente().size() == 0) {
+
+        if (colecaoCliente.getCliente().isEmpty()) {
             sb.append("Nenhum cliente cadastrado.");
         }
-        JOptionPane.showMessageDialog(this, sb.toString());
+
+        JTextArea textArea = new JTextArea(sb.toString());
+        textArea.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(400, 300));
+
+        JOptionPane.showMessageDialog(null, scrollPane, "Clientes Cadastrados", JOptionPane.PLAIN_MESSAGE);
+        System.out.println(sb);
     }
 
     private void cadastrarPorto() {
@@ -662,16 +686,26 @@ public class MenuInicial extends JFrame implements ActionListener {
 
     private void exibirPortosCadastrados() {
         StringBuilder sb = new StringBuilder();
+
         for (Porto porto : colecaoPortos.getPortos()) {
             sb.append("ID: ").append(porto.getId()).append("\n");
             sb.append("Nome: ").append(porto.getNome()).append("\n");
             sb.append("País: ").append(porto.getPais()).append("\n");
             sb.append("--------------------\n");
         }
-        if (colecaoPortos.getPortos().size() == 0) {
+
+        if (colecaoPortos.getPortos().isEmpty()) {
             sb.append("Nenhum Porto cadastrado.");
         }
-        JOptionPane.showMessageDialog(this, sb.toString());
+
+        JTextArea textArea = new JTextArea(sb.toString());
+        textArea.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(400, 300));
+
+        JOptionPane.showMessageDialog(null, scrollPane, "Portos Cadastrados", JOptionPane.PLAIN_MESSAGE);
+        System.out.println(sb);
     }
 
     private void cadastrarNavio() {
@@ -730,6 +764,7 @@ public class MenuInicial extends JFrame implements ActionListener {
 
     private void exibirNaviosCadastrados() {
         StringBuilder sb = new StringBuilder();
+
         for (Navio navio : colecaoNavio.getNavios()) {
             sb.append("Nome: ").append(navio.getNome()).append("\n");
             sb.append("Velocidade: ").append(navio.getVelocidade()).append(" nós\n");
@@ -737,10 +772,19 @@ public class MenuInicial extends JFrame implements ActionListener {
             sb.append("Custo por milha: ").append(navio.getCustoPorMilhaBasico()).append("\n");
             sb.append("--------------------\n");
         }
-        if (colecaoNavio.getNavios().size() == 0) {
+
+        if (colecaoNavio.getNavios().isEmpty()) {
             sb.append("Nenhum Navio cadastrado.");
         }
-        JOptionPane.showMessageDialog(this, sb.toString());
+
+        JTextArea textArea = new JTextArea(sb.toString());
+        textArea.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(400, 300));
+
+        JOptionPane.showMessageDialog(null, scrollPane, "Navios Cadastrados", JOptionPane.PLAIN_MESSAGE);
+        System.out.println(sb);
     }
 
     public static void main(String[] args) {

@@ -1,16 +1,18 @@
 package Colecoes;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 import Objetos.Cliente;
 
-public class ColecaoCliente{
-    private ArrayList <Cliente> clientes;
+public class ColecaoCliente {
+    private ArrayList<Cliente> clientes;
 
     public ColecaoCliente() {
         clientes = new ArrayList<>();
     }
+
     public boolean addCliente(Cliente cliente) {
         boolean adicionado = clientes.add(cliente);
         if (adicionado) {
@@ -18,20 +20,23 @@ public class ColecaoCliente{
         }
         return adicionado;
     }
+
     public ArrayList<Cliente> getCliente() {
         return clientes;
     }
-    public boolean procuraId(int id){
+
+    public boolean procuraEmail(String email) {
         for (Cliente cliente : clientes) {
-            if(cliente.getCod() == id){
+            if (cliente.getEmail().equals(email)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean procuraEmail(String email){
+
+    public boolean procuraId(int id) {
         for (Cliente cliente : clientes) {
-            if(cliente.getEmail().equals(email)){
+            if (cliente.getCod() == id) {
                 return true;
             }
         }
