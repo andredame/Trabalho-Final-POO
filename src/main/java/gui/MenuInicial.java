@@ -783,52 +783,7 @@ public class MenuInicial extends JFrame implements ActionListener {
         }
     }
 
-    private void cadastrarViagem() {
-        try {
-            JTextField nomeClienteTextField = new JTextField(10);
-            JTextField origemTextField = new JTextField(10);
-            JTextField destinoTextField = new JTextField(10);
-            JRadioButton option1RadioButton = new JRadioButton("Perecível");
-            JRadioButton option2RadioButton = new JRadioButton("Durável");
-
-            ButtonGroup buttonGroup = new ButtonGroup();
-            buttonGroup.add(option1RadioButton);
-            buttonGroup.add(option2RadioButton);
-
-            Object[] message = {
-                    "Nome do cliente:", nomeClienteTextField,
-                    "Origem:", origemTextField,
-                    "Destino:", destinoTextField,
-                    "Tipo de Carga:", option1RadioButton, option2RadioButton
-            };
-
-            int option = JOptionPane.showOptionDialog(
-                    this,
-                    message,
-                    "Cadastrar Viagem",
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.PLAIN_MESSAGE,
-                    null,
-                    null,
-                    null);
-
-            if (option == JOptionPane.OK_OPTION) {
-                String nomeCliente = nomeClienteTextField.getText();
-                String origem = origemTextField.getText();
-                String destino = destinoTextField.getText();
-                TipoCarga tipoCarga;
-                if (option1RadioButton.isSelected()) {
-                    // tipoCarga = (Perecivel) new ;
-                } else if (option2RadioButton.isSelected()) {
-                    // tipoCarga = "Durável";
-                }
-
-                // JOptionPane.showMessageDialog(this, mensagem);
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Entrada inválida. Por favor, insira um valor válido.");
-        }
-    }
+    
 
     private void exibirPortosCadastrados() {
         StringBuilder sb = new StringBuilder();
@@ -956,9 +911,6 @@ public class MenuInicial extends JFrame implements ActionListener {
         }
         if (e.getSource() == clientesCadastrados) {
             exibirClientesCadastrados();
-        }
-        if (e.getSource() == cadastrarViagem) {
-            cadastrarViagem();
         }
         if (e.getSource() == cadastrarTipo) {
             cadastrarNovoTipoDeCarga();
