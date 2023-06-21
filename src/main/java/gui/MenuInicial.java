@@ -930,11 +930,6 @@ public class MenuInicial extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(null, scrollPane, "Navios Cadastrados", JOptionPane.PLAIN_MESSAGE);
         System.out.println(sb);
     }
-
-    public static void main(String[] args) {
-        new MenuInicial();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == cadastrarPortoButton) {
