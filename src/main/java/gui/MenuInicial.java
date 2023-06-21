@@ -28,6 +28,8 @@ public class MenuInicial extends JFrame implements ActionListener {
     private ColecaoCarga colecaoCarga;
     private ColecaoTipoCarga colecaoTipoCarga;
     private ColecaoCliente colecaoCliente;
+    private ColecaoDistancia colecaoDistancia;
+    private ColecaoViagens colecaoViagens;
 
     private JButton cadastrarNavioButton;
     private JButton cadastrarCarga;
@@ -57,6 +59,8 @@ public class MenuInicial extends JFrame implements ActionListener {
         colecaoTipoCarga = new ColecaoTipoCarga();
         colecaoPortos = new ColecaoPortos();
         colecaoCarga = new ColecaoCarga();
+        colecaoDistancia = new ColecaoDistancia();
+        colecaoViagens = new ColecaoViagens();
 
         cadastrarNavioButton = new JButton("Cadastrar Navio");
         naviosCadastradosButton = new JButton("Navios Cadastrados");
@@ -184,6 +188,8 @@ public class MenuInicial extends JFrame implements ActionListener {
                 this.colecaoNavio = csv.getColecaoNavios();
                 this.colecaoTipoCarga = csv.getColecaoTipoCarga();
                 this.colecaoPortos = csv.getColecaoPortos();
+                this.colecaoDistancia = csv.getColecaoDistancias();
+                this.colecaoViagens = csv.getColecaoViagens();
                 JOptionPane.showMessageDialog(this, "Dados carregados com sucesso");
             } else {
                 JOptionPane.showMessageDialog(this, "Dados NÃO carregados, tente novamente ");
@@ -221,6 +227,8 @@ public class MenuInicial extends JFrame implements ActionListener {
                 this.colecaoNavio = json.getColecaoNavio();
                 this.colecaoTipoCarga = json.getColecaoTipoCarga();
                 this.colecaoPortos = json.getColecaoPorto();
+                this.colecaoDistancia = json.getColecaoDistancia();
+                this.colecaoViagens = json.getColecaoViagem();
                 JOptionPane.showMessageDialog(this, "Dados carregados com sucesso");
             } else {
                 JOptionPane.showMessageDialog(this, "Dados NÃO carregados, tente novamente ");
@@ -448,29 +456,39 @@ public class MenuInicial extends JFrame implements ActionListener {
                         null);
 
                 if (option == JOptionPane.OK_OPTION) {
+
                     int codCarga = Integer.parseInt(codCargaTextField.getText());
                     int cliente = Integer.parseInt(clienteTextField.getText());
-                    String origem = origemTextField.getText();
-                    String destino = destinoTextField.getText();
+                    int origem = Integer.parseInt(clienteTextField.getText());
+                    int destino = Integer.parseInt(clienteTextField.getText());
                     int peso = Integer.parseInt(pesoTextField.getText());
                     double valorDeclarado = Double.parseDouble(valorDeclaradoTextField.getText());
                     int tempoMaximo = Integer.parseInt(tempoMaximoDeclaradoTextField.getText());
                     int tipoCarga = Integer.parseInt(tipoCargaTextField.getText());
 
-                    if (rapidoRadioButton.isSelected()) {
-                        Carga carga = new Carga(option, cliente, codCarga, cliente, peso, valorDeclarado, tempoMaximo,
-                                tipoCarga, null, null);
-                        colecaoCarga.addCarga(carga);
-                    } else if (baratoRadioButton.isSelected()) {
-                        Carga carga = new Carga(option, cliente, codCarga, cliente, peso, valorDeclarado, tempoMaximo,
-                                tipoCarga, null, null);
-                        colecaoCarga.addCarga(carga);
-                    }
+                    if (colecaoCarga.containsCod(codCarga) && colecaoCliente.procuraId(cliente)
+                            && colecaoDistancia.procuraRota(origem, destino)
+                            && colecaoTipoCarga.procurarNumeroCarga(tipoCarga)) {
 
-                    JOptionPane.showMessageDialog(this, "Carga cadastrada com sucesso!");
-                    break;
-                } else {
-                    break;
+                        if (rapidoRadioButton.isSelected()) {
+                            Carga carga = new Carga(codCarga, cliente, origem, destino, peso, valorDeclarado,
+                                    tempoMaximo,
+                                    tipoCarga, Prioridade.RAPIDO, Situacao.PENDENTE);
+                            colecaoCarga.addCarga(carga);
+                        } else if (baratoRadioButton.isSelected()) {
+                            Carga carga = new Carga(codCarga, cliente, origem, destino, peso, valorDeclarado,
+                                    tempoMaximo,
+                                    tipoCarga, Prioridade.BARATO, Situacao.PENDENTE);
+                            colecaoCarga.addCarga(carga);
+                        }
+
+                        JOptionPane.showMessageDialog(this, "Carga cadastrada com sucesso!");
+                        break;
+                    } else {
+                        JOptionPane.showMessageDialog(this,
+                                "Carga Não cadastrada, alguma informação disponibilizada está errada");
+                        break;
+                    }
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this,
@@ -537,7 +555,7 @@ public class MenuInicial extends JFrame implements ActionListener {
                                 "Tipo de carga com esse número já foi cadastrado. Por favor, digite outro número.");
                     } else {
                         String descricao = descricaoTextField.getText();
-                        String categoria = "";
+
                         String origem = "";
                         String setor = "";
                         int tempoMaximo = 0;
@@ -551,7 +569,7 @@ public class MenuInicial extends JFrame implements ActionListener {
                             Perecivel perecivel = new Perecivel(numero, descricao, origem, tempoMaximo);
                             colecaoTipoCarga.addTipoCarga(perecivel);
                         } else if (duravelRadioButton.isSelected()) {
-                            categoria = "DURAVEL";
+
                             setor = setorTextField.getText();
                             material = materialTextField.getText();
                             ipi = Double.parseDouble(ipiTextField.getText());

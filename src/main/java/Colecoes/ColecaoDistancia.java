@@ -2,7 +2,6 @@ package Colecoes;
 
 import java.util.ArrayList;
 
-import Objetos.Cliente;
 import Objetos.Distancia;
 
 public class ColecaoDistancia {

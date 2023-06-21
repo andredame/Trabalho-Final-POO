@@ -33,4 +33,13 @@ public class ColecaoCarga {
         }
         return null;
     }
+     public boolean containsCod(int cod) {
+        for (Carga c : cargas) {
+            if (c.getIdentificador() == cod) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
