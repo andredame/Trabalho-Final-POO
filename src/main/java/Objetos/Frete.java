@@ -6,6 +6,7 @@ public class Frete {
     private Porto porto;
     private Navio navio;
     private TipoCarga tipoCarga;
+    private Porto portoOrigem;
 
     private double valorDoFrete;
 
@@ -13,12 +14,13 @@ public class Frete {
     private double precoPeso;
     private double precoCustoRegiao;
 
-    public Frete(Distancia distancia, Carga carga, Porto porto, Navio navio, TipoCarga tipoCarga) {
+    public Frete(Distancia distancia, Carga carga, Porto porto, Navio navio, TipoCarga tipoCarga,Porto portoOrigem) {
         this.distancia = distancia;
         this.carga = carga;
         this.porto = porto;
         this.navio = navio;
         this.tipoCarga = tipoCarga;
+        this.portoOrigem=portoOrigem;
     }
 
     public double getValorDoFrete() {
@@ -54,7 +56,7 @@ public class Frete {
     }
 
     private void precoCustoRegiao() {
-        if (porto.getPais().equalsIgnoreCase("brasil")) {
+        if (porto.getPais().equalsIgnoreCase("brasil")&& portoOrigem.getPais().equalsIgnoreCase("brasil")) {
             this.precoCustoRegiao = 10.000;
         } else {
             this.precoCustoRegiao = 50.000;

@@ -162,12 +162,16 @@ public class MenuInicial extends JFrame implements ActionListener {
                                 Distancia distancia = colecaoDistancia.procuraRota(cargaAlocar.getOrigem(),
                                         cargaAlocar.getDestino());
                                 Porto porto = colecaoPortos.getPortoPorId(cargaAlocar.getDestino());
+                                Porto porto2 = colecaoPortos.getPortoPorId(cargaAlocar.getOrigem());
                                 TipoCarga tipoCarga = colecaoTipoCarga.procurarNumeroCarga(cargaAlocar.getTipoCarga());
                                 Navio navio = colecaoNavio.selecionaNavioIdeal(cargaAlocar, distancia);
                                 if (navio != null) {
-                                    Frete frete = new Frete(distancia, cargaAlocar, porto, navio, tipoCarga);
+                                    Frete frete = new Frete(distancia, cargaAlocar, porto, navio, tipoCarga,porto2);
                                     frete.calculaFrete();
                                     double valorFrete = frete.getValorDoFrete();
+                                    cargaAlocar.setSituacao(Situacao.LOCADO);
+                                    navio.setEspacoDoNavio(Espaco.OCUPADO);
+                                    JOptionPane.showMessageDialog(this, "Carga Fretada com sucesso, o valor do frete é de: R$ "+valorFrete);
                                 }
                                 else{
                                     JOptionPane.showMessageDialog(this, "Não há Nenhum navio que consiga fazer essa viagem");
@@ -915,6 +919,9 @@ public class MenuInicial extends JFrame implements ActionListener {
         }
         if (e.getSource() == carregarDadosIniciais) {
             carregarDadosIniciais();
+        }
+        if (e.getSource() == novoFrete) {
+            novoFrete();
         }
     }
 

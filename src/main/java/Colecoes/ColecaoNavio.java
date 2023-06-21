@@ -60,17 +60,17 @@ public class ColecaoNavio {
 
         Navio n = null;
         for (Navio navio : navios) {
-            if (navio.getAutonomia() > distancia.getDistancia()) {
-                double tempoDoNavio = navio.getAutonomia() / navio.getVelocidade();
-                if (carga.getTempoMaximo() > tempoDoNavio) {
+            if (navio.getAutonomia() >= distancia.getDistancia()) {
+                double tempoDoNavio = distancia.getDistancia() / navio.getVelocidade();
+                if (carga.getTempoMaximo()*24 > tempoDoNavio) {
                     if (carga.getPrioridade() == Prioridade.RAPIDO) {
                         if (n == null || navio.getVelocidade() > n.getVelocidade()) {
                             n = navio;
                         }
                     }
                     if (carga.getPrioridade() == Prioridade.BARATO) {
-                        if (n==null || navio.getCustoPorMilhaBasico()<n.getCustoPorMilhaBasico()) {
-                             n = navio;
+                        if (n == null || navio.getCustoPorMilhaBasico() < n.getCustoPorMilhaBasico()) {
+                            n = navio;
                         }
                     }
 
