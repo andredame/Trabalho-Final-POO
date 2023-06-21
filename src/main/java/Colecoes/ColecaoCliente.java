@@ -34,7 +34,7 @@ public class ColecaoCliente {
         return false;
     }
 
-    public boolean procuraId(int id) {
+    public boolean containsId(int id) {
         for (Cliente cliente : clientes) {
             if (cliente.getCod() == id) {
                 return true;
@@ -42,5 +42,15 @@ public class ColecaoCliente {
         }
         return false;
     }
+    public Cliente procuraId(int id) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getCod() == id) {
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    
 
 }

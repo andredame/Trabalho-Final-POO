@@ -25,12 +25,21 @@ public class ColecaoPortos {
         return new ArrayList<>(portos);
     }
 
-    public boolean getPortoPorId(int id) {
+    public boolean containsPorto(int id) {
         for (Porto porto : portos) {
             if (porto.getId() == id) {
                 return true;
             }
         }
         return false;
+    }
+
+    public Porto getPortoPorId(int id) {
+        for (Porto porto : portos) {
+            if (porto.getId() == id) {
+                return porto;
+            }
+        }
+        return null;
     }
 }

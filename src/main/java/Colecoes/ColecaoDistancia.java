@@ -19,13 +19,22 @@ public class ColecaoDistancia {
         return mapa;
     }
 
-    public boolean procuraRota(int origem, int destino) {
+    public boolean containsRota(int origem, int destino) {
         for (Distancia rota : mapa) {
             if (rota.getDestino() == destino && rota.getOrigem() == origem) {
                 return true;
             }
         }
         return false;
+    }
+
+    public Distancia procuraRota(int origem, int destino) {
+        for (Distancia rota : mapa) {
+            if (rota.getDestino() == destino && rota.getOrigem() == origem) {
+                return rota;
+            }
+        }
+        return null;
     }
 
 }

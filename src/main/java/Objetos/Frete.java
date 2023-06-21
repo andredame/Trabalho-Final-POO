@@ -2,7 +2,6 @@ package Objetos;
 
 public class Frete {
     private Distancia distancia;
-    private Cliente cliente;
     private Carga carga;
     private Porto porto;
     private Navio navio;
@@ -26,7 +25,7 @@ public class Frete {
         return valorDoFrete;
     }
 
-    private void calculaFrete() {
+    public void calculaFrete() {
         precoDistancia();
         precoPeso();
         precoCustoRegiao();

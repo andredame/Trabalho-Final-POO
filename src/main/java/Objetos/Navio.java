@@ -8,7 +8,7 @@ public class Navio {
     private double velocidade;
     private double autonomia;
     private double custoPorMilhaBasico;
-    private Espaco espacoDoNavio;
+    private Espaco espacoDoNavio=Espaco.LIVRE;
 
     public Navio(String nome, double velocidade, double autonomia, double custoPorMilhaBasico) {
         this.nome = nome;

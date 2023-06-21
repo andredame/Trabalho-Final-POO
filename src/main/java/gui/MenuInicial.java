@@ -141,10 +141,10 @@ public class MenuInicial extends JFrame implements ActionListener {
                 
 
                 Object[] message = {
-                    "ID do porto:", codigoBarra,
+                    "Codigo da Carga:", codigoBarra,
                 };
 
-                int option = JOptionPane.showOptionDialog(this,message, "Cadastrar Porto", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,null, null,null);
+                int option = JOptionPane.showOptionDialog(this,message, "Fretar Carga", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,null, null,null);
 
                 if (option == JOptionPane.OK_OPTION) {
                     Carga cargaAlocar = colecaoCarga.getCargaCod(Integer.parseInt(codigoBarra.getText()));
@@ -154,6 +154,15 @@ public class MenuInicial extends JFrame implements ActionListener {
                             JOptionPane.showMessageDialog(this,
                                 "Carga indisponivel para ser Locada");
                         }else{
+                            Cliente cliente=colecaoCliente.procuraId(cargaAlocar.getCliente());
+                            Distancia distancia=colecaoDistancia.procuraRota(cargaAlocar.getOrigem(), cargaAlocar.getDestino());
+                            Porto porto=colecaoPortos.getPortoPorId(cargaAlocar.getDestino());
+                            TipoCarga tipoCarga=colecaoTipoCarga.procurarNumeroCarga(cargaAlocar.getTipoCarga());
+                            Navio navio=colecaoNavio.selecionaNavioIdeal(cargaAlocar, distancia);
+                            Frete frete=new Frete(distancia, cargaAlocar, porto, navio, tipoCarga);
+                            frete.calculaFrete();
+                            double valorFrete=frete.getValorDoFrete();
+
                             
                         }
                             
@@ -306,7 +315,7 @@ public class MenuInicial extends JFrame implements ActionListener {
                     String nomeCliente = nomeTextField.getText();
                     String emailCliente = emailTextField.getText();
 
-                    if (colecaoCliente.procuraId(codCliente) || colecaoCliente.procuraEmail(emailCliente)) {
+                    if (colecaoCliente.containsId(codCliente) || colecaoCliente.procuraEmail(emailCliente)) {
                         JOptionPane.showMessageDialog(this,
                                 "Cliente com o mesmo código ou email já foi cadastrado. Por favor, verifique os dados inseridos.");
                         continue;
@@ -506,9 +515,9 @@ public class MenuInicial extends JFrame implements ActionListener {
                     int tempoMaximo = Integer.parseInt(tempoMaximoDeclaradoTextField.getText());
                     int tipoCarga = Integer.parseInt(tipoCargaTextField.getText());
 
-                    if (colecaoCarga.containsCod(codCarga) && colecaoCliente.procuraId(cliente)
-                            && colecaoDistancia.procuraRota(origem, destino)
-                            && colecaoTipoCarga.procurarNumeroCarga(tipoCarga)) {
+                    if (colecaoCarga.containsCod(codCarga) && colecaoCliente.containsId(cliente)
+                            && colecaoDistancia.containsRota(origem, destino)
+                            && colecaoTipoCarga.containsTipoCarga(tipoCarga)) {
 
                         if (rapidoRadioButton.isSelected()) {
                             Carga carga = new Carga(codCarga, cliente, origem, destino, peso, valorDeclarado,
@@ -590,7 +599,7 @@ public class MenuInicial extends JFrame implements ActionListener {
                 if (option == JOptionPane.OK_OPTION) {
                     int numero = Integer.parseInt(numeroTextField.getText());
 
-                    if (colecaoTipoCarga.procurarNumeroCarga(numero)) {
+                    if (colecaoTipoCarga.containsTipoCarga(numero)) {
                         JOptionPane.showMessageDialog(this,
                                 "Tipo de carga com esse número já foi cadastrado. Por favor, digite outro número.");
                     } else {
@@ -673,7 +682,7 @@ public class MenuInicial extends JFrame implements ActionListener {
                 if (option == JOptionPane.OK_OPTION) {
                     int id = Integer.parseInt(idTextField.getText());
 
-                    if (colecaoPortos.getPortoPorId(id)) {
+                    if (colecaoPortos.containsPorto(id)) {
                         JOptionPane.showMessageDialog(this,
                                 "Porto com esse ID já foi cadastrado. Por favor, digite outro ID.");
                     } else {

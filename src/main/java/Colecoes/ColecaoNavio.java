@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import Objetos.Navio;
+import Objetos.*;
 
 public class ColecaoNavio {
     private ArrayList<Navio> navios;
@@ -29,7 +29,16 @@ public class ColecaoNavio {
         return navios.get(i);
     }
 
-    public boolean procuraNomeNavio(String nome) {
+    public Navio retornaUmNavioLivre() {
+        for (Navio navio : navios) {
+            if (navio.getEspacoDoNavio() == Espaco.LIVRE) {
+                return navio;
+            }
+        }
+        return null;
+    }
+
+    public boolean containsNavio(String nome) {
         for (Navio navio : navios) {
             if (navio.getNome().equalsIgnoreCase(nome)) {
                 return true;
@@ -37,5 +46,41 @@ public class ColecaoNavio {
         }
         return false;
     }
-    
+
+    public Navio procuraNomeNavio(String nome) {
+        for (Navio navio : navios) {
+            if (navio.getNome().equalsIgnoreCase(nome)) {
+                return navio;
+            }
+        }
+        return null;
+    }
+
+    public Navio selecionaNavioIdeal(Carga carga, Distancia distancia) {
+
+        Navio n = null;
+        for (Navio navio : navios) {
+            if (navio.getAutonomia() > distancia.getDistancia()) {
+                double tempoDoNavio = navio.getAutonomia() / navio.getVelocidade();
+                if (carga.getTempoMaximo() < tempoDoNavio) {
+                    if (carga.getPrioridade() == Prioridade.RAPIDO) {
+                        if (n == null || navio.getVelocidade() > n.getVelocidade()) {
+                            n = navio;
+                        }
+                    }
+                    if (carga.getPrioridade() == Prioridade.BARATO) {
+                        if (n==null || navio.getCustoPorMilhaBasico()<n.getCustoPorMilhaBasico()) {
+                             n = navio;
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+        return n;
+
+    }
+
 }
